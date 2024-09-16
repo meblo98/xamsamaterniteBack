@@ -6,23 +6,22 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSageFemmeRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
+    public function authorize()
     {
-        return false;
+        return true; // Autoriser toutes les requêtes pour cet exemple, adapte-le si nécessaire
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            // 'prenom' => 'required|string|max:255',
+            // 'nom' => 'required|string|max:255',
+            // 'email' => 'required|email|unique:users,email',
+            // 'telephone' => 'required|integer|unique:users,telephone',
+            // 'adresse' => 'nullable|string',
+            // 'photo' => 'nullable|string',
+            // 'matricule' => 'required|string',
+            // 'structure_sante_id' => 'required|exists:structure_santes,id',
         ];
     }
 }
