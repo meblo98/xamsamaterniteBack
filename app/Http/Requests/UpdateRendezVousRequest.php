@@ -11,7 +11,7 @@ class UpdateRendezVousRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateRendezVousRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'visite_id' => 'nullable|exists:visites,id',
+            'vaccination_id' => 'nullable|exists:vaccinations,id',
+            'date_rv' => 'sometimes|date',
         ];
     }
 }

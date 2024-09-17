@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PatienteController;
 use App\Http\Controllers\SageFemmeController;
 use App\Http\Controllers\ConsultatonController;
+use App\Http\Controllers\RendezVousController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -28,3 +29,7 @@ Route::resource('patientes', PatienteController::class);
 // gestion des consultations
 
 Route::resource('consultations', ConsultatonController::class);
+
+// gestion des rendez-vous
+
+Route::resource('rv', RendezVousController::class);
