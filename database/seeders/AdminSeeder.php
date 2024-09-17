@@ -37,8 +37,8 @@ class AdminSeeder extends Seeder
             'user_id' => $user->id,
         ]);
 
-        // Envoyer le SMS avec le mot de passe
-        $this->sendSms($user->telephone, $password);
+        // // Envoyer le SMS avec le mot de passe
+        // $this->sendSms($user->telephone, $password);
     }
 
     // Fonction pour générer un mot de passe aléatoire
@@ -47,21 +47,21 @@ class AdminSeeder extends Seeder
         return substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, $length);
     }
 
-    // Fonction pour envoyer un SMS via Twilio
-    private function sendSms($telephone, $password)
-    {
-        $sid = env('TWILIO_SID');
-        $token = env('TWILIO_TOKEN');
-        $twilio = new Client($sid, $token);
+    // // Fonction pour envoyer un SMS via Twilio
+    // private function sendSms($telephone, $password)
+    // {
+    //     $sid = env('TWILIO_SID');
+    //     $token = env('TWILIO_TOKEN');
+    //     $twilio = new Client($sid, $token);
 
-        $message = "Votre compte administrateur a été créé. Mot de passe : $password";
+    //     $message = "Votre compte administrateur a été créé. Mot de passe : $password";
 
-        $twilio->messages->create(
-            '+221'.$telephone, // Ajouter le code pays du Sénégal
-            [
-                'from' => env('TWILIO_PHONE_NUMBER'),
-                'body' => $message,
-            ]
-        );
-    }
+    //     $twilio->messages->create(
+    //         '+221'.$telephone, // Ajouter le code pays du Sénégal
+    //         [
+    //             'from' => env('TWILIO_PHONE_NUMBER'),
+    //             'body' => $message,
+    //         ]
+    //     );
+    // }
 }

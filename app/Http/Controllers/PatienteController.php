@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StorePatienteRequest;
 use App\Http\Requests\UpdatePatienteRequest;
-use Illuminate\Support\Str;
 
 class PatienteController extends Controller
 {
@@ -29,8 +28,8 @@ class PatienteController extends Controller
     // Méthode pour créer une patiente
     public function store(StorePatienteRequest $request)
     {
-        // Générer un mot de passe aléatoire
-        $password = Str::random(12);
+          // Générer un mot de passe aléatoire
+          $password = $this->generateRandomPassword();
 
         $user = User::create([
             'prenom' => $request->prenom,
@@ -65,6 +64,13 @@ class PatienteController extends Controller
             'patiente' => $patiente,
         ], 201);
     }
+
+
+      // Fonction pour générer un mot de passe aléatoire
+      private function generateRandomPassword($length = 8)
+      {
+          return substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, $length);
+      }
 
     // Méthode pour envoyer un SMS
     private function sendSms($to, $message)
