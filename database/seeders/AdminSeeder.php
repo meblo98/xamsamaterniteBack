@@ -25,7 +25,7 @@ class AdminSeeder extends Seeder
             'nom' => 'Super',
             'adresse' => 'Dakar, Sénégal',
             'email' => 'admin@example.com',
-            'telephone' => '773162001',
+            'telephone' => '700000000',
             'password' => Hash::make($password),
         ]);
 

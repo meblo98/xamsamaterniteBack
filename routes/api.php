@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PatienteController;
 use App\Http\Controllers\SageFemmeController;
+use App\Http\Controllers\ConsultatonController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -23,3 +24,7 @@ Route::put('/sage-femmes/{id}/archive', [SageFemmeController::class, 'archive'])
 // gestion des patientes
 
 Route::resource('patientes', PatienteController::class);
+
+// gestion des consultations
+
+Route::resource('consultations', ConsultatonController::class);

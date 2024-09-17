@@ -28,8 +28,8 @@ class PatienteController extends Controller
     // Méthode pour créer une patiente
     public function store(StorePatienteRequest $request)
     {
-          // Générer un mot de passe aléatoire
-          $password = $this->generateRandomPassword();
+        // Générer un mot de passe aléatoire
+        $password = $this->generateRandomPassword();
 
         $user = User::create([
             'prenom' => $request->prenom,
@@ -56,8 +56,8 @@ class PatienteController extends Controller
         // Envoi de l'email
         Mail::to($user->email)->send(new PatienteRegistered($user, $request->password));
 
-        // Envoi du SMS
-        $this->sendSms($user->telephone, 'Votre compte a été créé. Votre mot de passe est : ' . $password);
+        // Envoyer le SMS avec le mot de passe
+        $this->sendSms($user->telephone, $password);
 
         return response()->json([
             'message' => 'Patiente créée avec succès',
@@ -66,25 +66,25 @@ class PatienteController extends Controller
     }
 
 
-      // Fonction pour générer un mot de passe aléatoire
-      private function generateRandomPassword($length = 8)
-      {
-          return substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, $length);
-      }
+    // Fonction pour générer un mot de passe aléatoire
+    private function generateRandomPassword($length = 8)
+    {
+        return substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, $length);
+    }
 
-    // Méthode pour envoyer un SMS
-    private function sendSms($to, $message)
+    // Fonction pour envoyer un SMS via Twilio
+    private function sendSms($telephone, $password)
     {
         $sid = env('TWILIO_SID');
         $token = env('TWILIO_TOKEN');
-        $twilioNumber = env('TWILIO_NUMBER');
+        $twilio = new Client($sid, $token);
 
-        $client = new Client($sid, $token);
+        $message = "Votre compte a été créé. Mot de passe : $password";
 
-        $client->messages->create(
-            $to,
+        $twilio->messages->create(
+            '+221' . $telephone, // Ajouter le code pays du Sénégal
             [
-                'from' => $twilioNumber,
+                'from' => env('TWILIO_PHONE_NUMBER'),
                 'body' => $message,
             ]
         );
