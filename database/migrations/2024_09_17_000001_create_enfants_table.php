@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Patiente;
-use App\Models\SageFemme;
+use App\Models\Accouchement;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,13 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('conseils', function (Blueprint $table) {
+        Schema::create('enfants', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
-            $table->text('description');
-            $table->foreignIdFor(SageFemme::class)->onDelete('cascade');
-            $table->foreignIdFor(Patiente::class)->onDelete('cascade');
-
+            $table->string('nom');
+            $table->string('prenom');
+            $table->string('lieu_naissance');
+            $table->string('date_naissance');
+            $table->foreignIdFor(Accouchement::class)->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('conseils');
+        Schema::dropIfExists('enfants');
     }
 };

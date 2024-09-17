@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\BadienGox;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,12 @@ return new class extends Migration
     {
         Schema::create('campagnes', function (Blueprint $table) {
             $table->id();
+            $table->string('nom');
+            $table->string('description');
+            $table->string('image');
+            $table->date('date_debut');
+            $table->date('date_fin');
+            $table->foreignIdFor(BadienGox::class)->onDelete('cascade');
             $table->timestamps();
         });
     }

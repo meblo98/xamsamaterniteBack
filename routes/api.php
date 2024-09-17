@@ -20,3 +20,6 @@ Route::resource('sages-femmes', SageFemmeController::class);
 Route::put('/sage-femmes/{id}/archive', [SageFemmeController::class, 'archive']);
 
 
+// gestion des patientes
+
+Route::resource('patientes', PatienteController::class);
