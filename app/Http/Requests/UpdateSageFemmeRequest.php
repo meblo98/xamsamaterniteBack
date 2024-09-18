@@ -6,23 +6,24 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSageFemmeRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
+    public function authorize()
     {
-        return false;
+        return true; // Autoriser toutes les requêtes pour cet exemple, adapte-le si nécessaire
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
+    public function rules()
     {
+        $sageFemmeId = $this->route('sage_femme'); // Récupérer l'ID de la sage-femme en cours de mise à jour
+
         return [
-            //
+            'prenom' => 'sometimes|string|max:255',
+            'nom' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email|unique:users,email,' . $sageFemmeId,
+            'telephone' => 'sometimes|integer|unique:users,telephone,' . $sageFemmeId,
+            'adresse' => 'nullable|string',
+            'photo' => 'nullable|string',
+            'matricule' => 'sometimes|string',
+            'structure_sante_id' => 'sometimes|exists:structure_santes,id',
         ];
     }
 }

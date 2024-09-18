@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\DistrictSanitaire;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,9 @@ return new class extends Migration
     {
         Schema::create('poste_de_santes', function (Blueprint $table) {
             $table->id();
+            $table->string('nom');
+            $table->foreignIdFor(DistrictSanitaire::class)->onDelete('cascade');
+            $table->string('lieu');
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ class UpdateBadienGoxRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateBadienGoxRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'prenom' => 'sometimes|string|max:255',
+            'nom' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email|max:255|unique:users,email,' . $this->route('badienGox'),
+            'adresse' => 'sometimes|string|max:255',
+            'telephone' => 'sometimes|string|max:20',
         ];
     }
 }

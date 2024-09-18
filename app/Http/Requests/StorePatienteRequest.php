@@ -1,28 +1,29 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePatienteRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
+    public function authorize()
     {
-        return false;
+        return true; // Mettre à jour selon vos besoins de sécurité
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            // 'prenom' => 'required|string|max:255',
+            // 'nom' => 'required|string|max:255',
+            // 'adresse' => 'required|string|max:255',
+            // 'email' => 'required|string|email|max:255|unique:users',
+            // 'telephone' => 'required|numeric|unique:users',
+            // 'password' => 'required|string|min:8',
+            // 'lieu_de_naissance' => 'required|string',
+            // 'date_de_naissance' => 'required|string',
+            // 'profession' => 'required|string',
+            // 'type' => 'required|in:Enceinte,En planning,Allaitente',
+            // 'sage_femme_id' => 'required|exists:sage_femmes,id',
         ];
     }
 }
