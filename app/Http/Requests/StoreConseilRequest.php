@@ -11,7 +11,7 @@ class StoreConseilRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreConseilRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'description' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'patiente_id' => 'required|exists:patientes,id',
         ];
     }
 }

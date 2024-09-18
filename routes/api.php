@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConseilController;
 use App\Http\Controllers\CampagneController;
 use App\Http\Controllers\PatienteController;
 use App\Http\Controllers\BadienGoxController;
@@ -45,3 +46,7 @@ Route::resource('badiene-gox', BadienGoxController::class);
 // gestion des campagnes
 
 Route::resource('campagnes', CampagneController::class);
+
+// gestion des conseils
+
+Route::resource('conseils', ConseilController::class);

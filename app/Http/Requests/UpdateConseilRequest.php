@@ -11,7 +11,7 @@ class UpdateConseilRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateConseilRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'description' => 'sometimes|string',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'patiente_id' => 'sometimes|exists:patientes,id',
         ];
     }
 }
