@@ -3,11 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BadienGoxController;
+use App\Http\Controllers\CampagneController;
 use App\Http\Controllers\PatienteController;
+use App\Http\Controllers\BadienGoxController;
 use App\Http\Controllers\SageFemmeController;
-use App\Http\Controllers\ConsultatonController;
 use App\Http\Controllers\RendezVousController;
+use App\Http\Controllers\ConsultatonController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -40,3 +41,7 @@ Route::resource('rv', RendezVousController::class);
 // gestion des badiène gox
 
 Route::resource('badiene-gox', BadienGoxController::class);
+
+// gestion des campagnes
+
+Route::resource('campagnes', CampagneController::class);

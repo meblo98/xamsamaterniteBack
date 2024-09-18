@@ -11,7 +11,7 @@ class UpdateCampagneRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class UpdateCampagneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string',
+            'image' => 'sometimes|string',
+            'date_debut' => 'sometimes|date',
+            'date_fin' => 'sometimes|date|after_or_equal:date_debut',
+            'badien_gox_id' => 'sometimes|exists:badien_goxes,id',
         ];
     }
 }
