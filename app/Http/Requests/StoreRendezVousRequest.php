@@ -18,7 +18,6 @@ class StoreRendezVousRequest extends FormRequest
     {
         return [
             'patiente_id' => 'required|exists:patientes,id',
-            'sage_femme_id' => 'required|exists:sage_femmes,id',
             'visite_id' => 'nullable|exists:visites,id',
             'vaccination_id' => 'nullable|exists:vaccinations,id',
             'date_rv' => 'required|date',

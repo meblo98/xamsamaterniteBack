@@ -9,20 +9,20 @@ class StoreBadienGoxRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize()
     {
-        return false;
+        return true; // Autoriser la requête
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            // 'nom' => 'required|string|max:255',
+            // 'prenom' => 'required|string|max:255',
+            // 'email' => 'required|string|email|max:255|unique:users',
+            // 'telephone' => 'required|numeric|unique:users',
+            // 'sage_femme_id' => 'required|exists:sage_femmes,id',
+            // 'adresse' => 'required|string|max:255',
         ];
     }
 }

@@ -6,6 +6,8 @@ use App\Models\RendezVous;
 use App\Http\Requests\StoreRendezVousRequest;
 use App\Http\Requests\UpdateRendezVousRequest;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+
 class RendezVousController extends Controller
 {
     /**
@@ -13,7 +15,20 @@ class RendezVousController extends Controller
      */
     public function index()
     {
-        $rendez_vouses = RendezVous::with(['patiente', 'sageFemme', 'visite', 'vaccination'])->get();
+        $user = Auth::user();
+
+        if ($user->hasRole('patiente')) {
+            $rendez_vouses = RendezVous::where('patiente_id', $user->id)
+                ->with(['patiente', 'sageFemme', 'visite', 'vaccination'])
+                ->get();
+        } elseif ($user->hasRole('sage-femme')) {
+            $rendez_vouses = RendezVous::where('sage_femme_id', $user->id)
+                ->with(['patiente', 'sageFemme', 'visite', 'vaccination'])
+                ->get();
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         return response()->json([
             'Liste des rendez-vous' => $rendez_vouses
         ], 200);
@@ -32,7 +47,16 @@ class RendezVousController extends Controller
      */
     public function store(StoreRendezVousRequest $request)
     {
-        $rendezVous = RendezVous::create($request->validated());
+        $user = Auth::user(); // Récupère l'utilisateur connecté
+        $sageFemmeId = $user->sageFemme->id; // Récupère l'id de la sage-femme associée à l'utilisateur
+
+        $rendezVous = RendezVous::create([
+            'date_rv' => $request->date_rv,
+            'patiente_id' => $request->patiente_id,
+            'sage_femme_id' => $sageFemmeId,
+            'visite_id' => $request->visite_id,
+            'vaccination_id' => $request->vaccination_id,
+        ]);
 
         return response()->json([
             'message' => 'Rendez-vous créé avec succès.',
@@ -47,10 +71,10 @@ class RendezVousController extends Controller
     {
         // Charger les relations patiente, sageFemme, visite et vaccination
         $rendezVous = $rv->load(['patiente', 'sageFemme', 'visite', 'vaccination']);
-    
+
         return response()->json($rendezVous, Response::HTTP_OK);
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.
@@ -72,7 +96,7 @@ class RendezVousController extends Controller
         }
 
         $rv->update($request->validated());
-       
+
         return response()->json([
             'message' => 'Rendez-vous mise à jour avec succès',
             'data' => $rv
@@ -92,5 +116,5 @@ class RendezVousController extends Controller
             'message' => 'Rendez-vous supprimé avec succès.'
         ], 200);
     }
-    
+
 }

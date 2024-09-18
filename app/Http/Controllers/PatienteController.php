@@ -6,6 +6,7 @@ use App\Models\User;
 use Twilio\Rest\Client;
 use App\Models\Patiente;
 use App\Mail\PatienteRegistered;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StorePatienteRequest;
@@ -16,8 +17,10 @@ class PatienteController extends Controller
 
     public function index()
     {
-        // Utilisation de with() avant get() pour charger la relation 'user'
-        $patientes = Patiente::with('user')->get();
+        $user = Auth::user(); // Récupère l'utilisateur connecté
+        $sageFemmeId = $user->sageFemme->id; // Récupère l'id de la sage-femme associée à l'utilisateur
+
+        $patientes = Patiente::where('sage_femme_id', $sageFemmeId)->with('user')->get();
 
         return response()->json([
             'Liste des patientes' => $patientes,
@@ -30,6 +33,8 @@ class PatienteController extends Controller
     {
         // Générer un mot de passe aléatoire
         $password = $this->generateRandomPassword();
+        $user = Auth::user();
+        $sageFemmeId = $user->sageFemme->id;
 
         $user = User::create([
             'prenom' => $request->prenom,
@@ -50,11 +55,11 @@ class PatienteController extends Controller
             'date_de_naissance' => $request->date_de_naissance,
             'profession' => $request->profession,
             'type' => $request->type,
-            'sage_femme_id' => $request->sage_femme_id,
+            'sage_femme_id' => $sageFemmeId,
         ]);
 
         // Envoi de l'email
-        Mail::to($user->email)->send(new PatienteRegistered($user, $request->password));
+        Mail::to($user->email)->send(new PatienteRegistered($user, $password));
 
         // Envoyer le SMS avec le mot de passe
         $this->sendSms($user->telephone, $password);

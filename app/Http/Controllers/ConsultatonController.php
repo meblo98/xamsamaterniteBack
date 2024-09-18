@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreConsultatonRequest;
-use App\Http\Requests\UpdateConsultatonRequest;
 use App\Models\Consultaton;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreConsultatonRequest;
+use App\Http\Requests\UpdateConsultatonRequest;
 
 class ConsultatonController extends Controller
 {
@@ -14,7 +15,11 @@ class ConsultatonController extends Controller
      */
     public function index()
     {
-        $consultations = Consultaton::all();
+        $user = Auth::user(); // Récupère l'utilisateur connecté
+        $sageFemmeId = $user->sageFemme->id; // Récupère l'id de la sage-femme associée à l'utilisateur
+
+        $consultations = Consultaton::where('sage_femme_id', $sageFemmeId)->get();
+
         return response()->json($consultations, Response::HTTP_OK);
     }
 
@@ -31,7 +36,13 @@ class ConsultatonController extends Controller
      */
     public function store(StoreConsultatonRequest $request)
     {
-        $consultation = Consultaton::create($request->validated());
+        $user = Auth::user(); // Récupère l'utilisateur connecté
+        $sageFemmeId = $user->sageFemme->id; // Récupère l'id de la sage-femme associée à l'utilisateur
+
+        $validatedData = $request->validated();
+        $validatedData['sage_femme_id'] = $sageFemmeId;
+
+        $consultation = Consultaton::create($validatedData);
 
         return response()->json([
             'message' => 'Consultation créée avec succès',
@@ -73,9 +84,9 @@ class ConsultatonController extends Controller
                 'message' => 'Consultation non trouvée'
             ], Response::HTTP_NOT_FOUND);
         }
-    
+
         $consultation->update($request->validated());
-    
+
         return response()->json([
             'message' => 'Consultation mise à jour avec succès',
             'data' => $consultation
