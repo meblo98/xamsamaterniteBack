@@ -17,15 +17,15 @@ class AdminSeeder extends Seeder
     public function run()
     {
         // Générer un mot de passe aléatoire
-        $password = $this->generateRandomPassword();
+        $password = 'passer123';
 
         // Créer un utilisateur admin
         $user = User::create([
             'prenom' => 'Admin',
             'nom' => 'Super',
             'adresse' => 'Dakar, Sénégal',
-            'email' => 'admin@example.com',
-            'telephone' => '700000000',
+            'email' => 'admin1@example.com',
+            'telephone' => '780000000',
             'password' => Hash::make($password),
         ]);
 
