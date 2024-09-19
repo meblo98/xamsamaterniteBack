@@ -10,4 +10,8 @@ class Accouchement extends Model
     use HasFactory;
     protected $guarded = [];
 
+    public function patiente()
+    {
+        return $this->belongsTo(Patiente::class);
+    }
 }
