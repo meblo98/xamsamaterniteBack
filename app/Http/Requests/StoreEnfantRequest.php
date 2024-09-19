@@ -11,7 +11,7 @@ class StoreEnfantRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class StoreEnfantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            // 'nom' => 'sometimes|string',
+            // 'prenom' => 'sometimes|string',
+            // 'lieu_naissance' => 'required|string',
+            // 'date_naissance' => 'required|date',
+            // 'accouchement_id' => 'required|exists:accouchements,id'
         ];
     }
 }
