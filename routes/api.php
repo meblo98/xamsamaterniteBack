@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EnfantController;
+use App\Http\Controllers\VisiteController;
 use App\Http\Controllers\ConseilController;
 use App\Http\Controllers\CampagneController;
 use App\Http\Controllers\PatienteController;
@@ -10,6 +12,8 @@ use App\Http\Controllers\BadienGoxController;
 use App\Http\Controllers\SageFemmeController;
 use App\Http\Controllers\RendezVousController;
 use App\Http\Controllers\ConsultatonController;
+use App\Http\Controllers\VaccinationController;
+use App\Http\Controllers\AccouchementController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -50,3 +54,18 @@ Route::resource('campagnes', CampagneController::class);
 // gestion des conseils
 
 Route::resource('conseils', ConseilController::class);
+
+// gestion des visites
+Route::resource('visites', VisiteController::class);
+
+// gestion des vaccinations
+
+Route::resource('vaccinations', VaccinationController::class);
+
+// gestion des accouchements
+
+Route::resource('accouchements', AccouchementController::class);
+
+// gestion des enfants
+
+Route::resource('enfants', EnfantController::class);
