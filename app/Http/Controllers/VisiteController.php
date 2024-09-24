@@ -17,7 +17,7 @@ class VisiteController extends Controller
     {
         $visites = Visite::all();
         return response()->json([
-            'Liste des visites' => $visites
+            'ListeVisites' => $visites
         ], Response::HTTP_OK);
     }
 

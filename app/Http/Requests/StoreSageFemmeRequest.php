@@ -14,14 +14,12 @@ class StoreSageFemmeRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'prenom' => 'required|string|max:255',
-            // 'nom' => 'required|string|max:255',
-            // 'email' => 'required|email|unique:users,email',
-            // 'telephone' => 'required|integer|unique:users,telephone',
-            // 'adresse' => 'nullable|string',
-            // 'photo' => 'nullable|string',
-            // 'matricule' => 'required|string',
-            // 'structure_sante_id' => 'required|exists:structure_santes,id',
+            'prenom' => 'required|string|max:255',
+            'nom' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email', // Vérifie l'unicité de l'email
+            'telephone' => 'required|unique:users,telephone', // Vérifie l'unicité du téléphone
+            'adresse' => 'required|string|max:255',
+            'matricule' => 'required|string|max:255|unique:sage_femmes,matricule', // Unicité du matricule
         ];
     }
 }

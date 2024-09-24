@@ -14,6 +14,7 @@ use App\Http\Controllers\RendezVousController;
 use App\Http\Controllers\ConsultatonController;
 use App\Http\Controllers\VaccinationController;
 use App\Http\Controllers\AccouchementController;
+use App\Http\Controllers\StructureSanteController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -69,3 +70,7 @@ Route::resource('accouchements', AccouchementController::class);
 // gestion des enfants
 
 Route::resource('enfants', EnfantController::class);
+
+// structure de santé
+
+Route::resource('structure', StructureSanteController::class);
