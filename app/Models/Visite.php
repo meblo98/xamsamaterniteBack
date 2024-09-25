@@ -9,4 +9,5 @@ class Visite extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    
 }

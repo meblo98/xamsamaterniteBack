@@ -25,4 +25,18 @@ class Patiente extends Model
     {
         return $this->belongsTo(SageFemme::class);
     }
+    public function rendezvous()
+    {
+        return $this->hasOne(RendezVous::class);
+    }
+
+    public function consultations()
+    {
+        return $this->hasOne(Consultaton::class);
+    }
+
+    public function accouchements()
+    {
+        return $this->hasOne(Accouchement::class);
+    }
 }

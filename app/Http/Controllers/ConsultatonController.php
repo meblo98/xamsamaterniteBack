@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Patiente;
 use App\Models\Consultaton;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +65,16 @@ class ConsultatonController extends Controller
         }
 
         return response()->json($consultation, Response::HTTP_OK);
+    }
+
+    /**
+     * Récupère la liste des consultations pour une patiente donnée.
+     */
+    public function getConsultationsByPatient($patientId)
+    {
+        $patiente = Patiente::find($patientId);
+        $consultations = $patiente->consultations->load('visite');
+        return response()->json(['consultations' => $consultations, Response::HTTP_OK]);
     }
 
     /**

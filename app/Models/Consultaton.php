@@ -9,4 +9,12 @@ class Consultaton extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function patiente()
+    {
+        return $this->belongsTo(Patiente::class);
+    }
+    public function visite()
+    {
+        return $this->belongsTo(Visite::class);
+    }
 }

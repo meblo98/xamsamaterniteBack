@@ -23,7 +23,7 @@ class PatienteController extends Controller
         $patientes = Patiente::where('sage_femme_id', $sageFemmeId)->with('user')->get();
 
         return response()->json([
-            'Liste des patientes' => $patientes,
+            'Liste_des_patientes' => $patientes,
         ]);
     }
 
@@ -98,7 +98,11 @@ class PatienteController extends Controller
     // Méthode pour afficher une patiente
     public function show($id)
     {
-        $patiente = Patiente::with('user')->findOrFail($id);
+        $patiente = Patiente::with('user')
+            ->with('rendezvous')
+            ->with('consultations')
+            ->with('accouchements')
+            ->findOrFail($id);
 
         return response()->json([
             'patiente' => $patiente,

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Patiente;
 use App\Models\RendezVous;
-use App\Http\Requests\StoreRendezVousRequest;
-use App\Http\Requests\UpdateRendezVousRequest;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreRendezVousRequest;
+use App\Http\Requests\UpdateRendezVousRequest;
 
 class RendezVousController extends Controller
 {
@@ -30,7 +31,16 @@ class RendezVousController extends Controller
         }
 
         return response()->json([
-            'Liste des rendez-vous' => $rendez_vouses
+            'Liste_des_rendez-vous' => $rendez_vouses
+        ], 200);
+    }
+
+    public function getRendezvousByPatiente($id_patiente)
+    {
+        $patiente = Patiente::find($id_patiente);
+        $rendezvous = $patiente->rendezvous->load('visite');
+        return response()->json([
+            'mes_rv' => $rendezvous
         ], 200);
     }
 
@@ -101,7 +111,6 @@ class RendezVousController extends Controller
             'message' => 'Rendez-vous mise à jour avec succès',
             'data' => $rv
         ], Response::HTTP_OK);
-
     }
 
     /**
@@ -116,5 +125,4 @@ class RendezVousController extends Controller
             'message' => 'Rendez-vous supprimé avec succès.'
         ], 200);
     }
-
 }
