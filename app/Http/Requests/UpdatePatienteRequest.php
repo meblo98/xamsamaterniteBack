@@ -13,17 +13,17 @@ class UpdatePatienteRequest extends FormRequest
 
     public function rules()
     {
+        
         return [
-            'prenom' => 'sometimes|string|max:255',
-            'nom' => 'sometimes|string|max:255',
-            'adresse' => 'sometimes|string|max:255',
-            'email' => 'sometimes|string|email|max:255',
-            'telephone' => 'sometimes|numeric',
-            'lieu_de_naissance' => 'sometimes|string',
-            'date_de_naissance' => 'sometimes|string',
-            'profession' => 'sometimes|string',
-            'type' => 'sometimes|in:Enceinte,En planning,Allaitente',
-            'sage_femme_id' => 'sometimes|exists:sage_femmes,id',
+            // 'prenom' => 'nullable|string|max:255',
+            // 'nom' => 'nullable|string|max:255',
+            // 'adresse' => 'nullable|string|max:255',
+            // 'email' => 'nullable|email|unique:users,email,' . $userId . ',id',
+            // 'telephone' => 'nullable|string|unique:users,telephone,' . $userId . ',id',
+            // 'lieu_de_naissance' => 'nullable|string',
+            // 'date_de_naissance' => 'nullable|string',
+            // 'profession' => 'nullable|string',
+            // 'type' => 'nullable|in:Enceinte,En planning,Allaitente',
         ];
     }
 }

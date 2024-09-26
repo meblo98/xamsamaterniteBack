@@ -14,13 +14,13 @@ class StoreConsultatonRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required|date',
-            'terme' => 'required|string',
-            'SA' => 'required|string',
+            'date' => 'nullable|date',
+            'terme' => 'nullable|string',
+            'SA' => 'nullable|string',
             'plaintes' => 'nullable|string',
-            'mois' => 'required|integer',
-            'poids' => 'required|numeric',
-            'taille' => 'required|numeric',
+            'mois' => 'nullable|integer',
+            'poids' => 'nullable|numeric',
+            'taille' => 'nullable|numeric',
             'PB' => 'nullable|numeric',
             'temperature' => 'nullable|numeric',
             'urine' => 'nullable|string',

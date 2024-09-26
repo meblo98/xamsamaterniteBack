@@ -24,9 +24,8 @@ class UpdateBadienGoxRequest extends FormRequest
         return [
             'prenom' => 'sometimes|string|max:255',
             'nom' => 'sometimes|string|max:255',
-            'email' => 'sometimes|email|max:255|unique:users,email,' . $this->route('badienGox'),
             'adresse' => 'sometimes|string|max:255',
-            'telephone' => 'sometimes|string|max:20',
+            'telephone' => 'sometimes|max:20',
         ];
     }
 }

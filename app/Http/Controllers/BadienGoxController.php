@@ -31,7 +31,7 @@ class BadienGoxController extends Controller
         $badieneGoxes = BadienGox::where('sage_femme_id', $sageFemmeId)->with('user')->get();
 
         return response()->json([
-            'Liste des Badiene Gox' => $badieneGoxes,
+            'Liste_BadieneGox' => $badieneGoxes,
         ]);
     }
 
@@ -136,7 +136,7 @@ public function update(UpdateBadienGoxRequest $request, $id)
 
     try {
         // Mettre à jour les informations de l'utilisateur
-        $user->update([
+        DB::table('users')->where('id', $user->id)->update([
             'prenom' => $request->input('prenom'),
             'nom' => $request->input('nom'),
             'email' => $request->input('email'),
