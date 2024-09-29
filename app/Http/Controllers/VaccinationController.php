@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreVaccinationRequest;
-use App\Http\Requests\UpdateVaccinationRequest;
+use App\Models\Enfant;
 use App\Models\Vaccination;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Requests\StoreVaccinationRequest;
+use App\Http\Requests\UpdateVaccinationRequest;
 
 class VaccinationController extends Controller
 {
@@ -36,7 +37,7 @@ class VaccinationController extends Controller
     // Créer une nouvelle vaccination
     public function store(StoreVaccinationRequest $request)
     {
-       
+
         $vaccination = Vaccination::create($request->all());
         return response()->json($vaccination, Response::HTTP_CREATED);
     }
@@ -92,4 +93,26 @@ class VaccinationController extends Controller
             'message' => 'Vaccination supprimée'
         ], Response::HTTP_OK);
     }
+
+    /**
+     * Afficher les vaccinations d'un enfant spécifique
+     */
+    // public function vaccinationsByEnfant($enfant_id)
+    // {
+    //     $enfant = Enfant::find($enfant_id);
+    //     $vaccinations = $enfant->vaccinations;
+    
+    //     return response()->json([
+    //         'vaccinations' => $vaccinations
+    //     ], Response::HTTP_OK);
+    // }
+    public function vaccinationsByEnfant($enfant_id)
+{
+    $enfant = Enfant::find($enfant_id);
+    $enfant->load('vaccinations');
+
+    return response()->json([
+        'vaccinations' => $enfant->vaccinations
+    ], Response::HTTP_OK);
+}
 }

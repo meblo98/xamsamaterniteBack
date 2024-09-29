@@ -26,6 +26,7 @@ class StoreEnfantRequest extends FormRequest
             // 'prenom' => 'sometimes|string',
             // 'lieu_naissance' => 'required|string',
             // 'date_naissance' => 'required|date',
+            // 'sexe' => 'required|string',
             // 'accouchement_id' => 'required|exists:accouchements,id'
         ];
     }

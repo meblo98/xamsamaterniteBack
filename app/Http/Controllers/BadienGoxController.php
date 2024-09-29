@@ -65,6 +65,8 @@ class BadienGoxController extends Controller
             'password' => Hash::make($password),
         ]);
 
+        $user->assignRole('badiene-gox');
+
         // Créer la Badiene Gox en associant l'utilisateur créé
         $badieneGox = BadienGox::create([
             'user_id' => $user->id,
@@ -78,7 +80,7 @@ class BadienGoxController extends Controller
         // Envoi du SMS via Twilio
         // $this->sendSmsNotification($user->telephone, $password);
 
-        return response()->json($badieneGox, Response::HTTP_CREATED);
+        return response()->json([$badieneGox, $password], Response::HTTP_CREATED);
     }
 
     // Fonction pour générer un mot de passe aléatoire

@@ -18,7 +18,7 @@ class EnfantController extends Controller
     {
         $enfants = Enfant::with('accouchement')->get();
         return response()->json([
-            'Liste des enfants' => $enfants
+            'Liste_des_enfants' => $enfants
         ], Response::HTTP_OK);
     }
 
@@ -36,7 +36,7 @@ class EnfantController extends Controller
   // Créer un nouvel enfant
   public function store(StoreEnfantRequest $request)
   {
-    
+
       $enfant = Enfant::create($request->all());
       return response()->json($enfant, Response::HTTP_CREATED);
   }
@@ -47,7 +47,7 @@ class EnfantController extends Controller
       // Afficher un enfant spécifique
       public function show($id)
       {
-          $enfant = Enfant::with('accouchement')->findOrFail($id);
+          $enfant = Enfant::with('accouchement.patiente.user')->findOrFail($id);
           return response()->json($enfant, Response::HTTP_OK);
       }
 
@@ -69,6 +69,7 @@ class EnfantController extends Controller
             'nom' => 'string',
             'prenom' => 'string',
             'lieu_naissance' => 'string',
+            'sexe' => 'string',
             'date_naissance' => 'date',
             'accouchement_id' => 'exists:accouchements,id'
         ]);
@@ -88,7 +89,7 @@ class EnfantController extends Controller
      {
          $enfant = Enfant::findOrFail($id);
          $enfant->delete();
- 
+
          return response()->json([
              'message' => 'Enfant supprimé'
          ], Response::HTTP_OK);

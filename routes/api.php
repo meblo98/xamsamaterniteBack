@@ -24,6 +24,7 @@ Route::get('/user', function (Request $request) {
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
+Route::post('profil',[AuthController::class, 'update']);
 
 
 //  gestion des sage-femmes
@@ -64,9 +65,10 @@ Route::resource('visites', VisiteController::class);
 // gestion des vaccinations
 
 Route::resource('vaccinations', VaccinationController::class);
-
+Route::get('/vaccinations/enfant/{enfant_id}', [VaccinationController::class, 'vaccinationsByEnfant']);
 // gestion des accouchements
 
+Route::get('/accouchements/patiente/{patiente_id}', [AccouchementController::class, 'getAccouchementsByPatiente']);
 Route::resource('accouchements', AccouchementController::class);
 
 // gestion des enfants

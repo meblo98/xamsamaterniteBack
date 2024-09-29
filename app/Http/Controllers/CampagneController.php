@@ -16,7 +16,7 @@ class CampagneController extends Controller
      */
     public function index()
     {
-        $campagnes = Campagne::with('badienGox')->get();
+        $campagnes = Campagne::all();
         return response()->json($campagnes, Response::HTTP_OK);
     }
 
@@ -36,13 +36,14 @@ class CampagneController extends Controller
         // Récupérer l'utilisateur connecté
         $user = Auth::user();
         $badienGox = $user->badienGox;
-    
+
         if (!$badienGox) {
             return response()->json([
                 'message' => 'Badiene Gox non trouvée pour cet utilisateur'
             ], Response::HTTP_NOT_FOUND);
         }
-    
+
+
         // Validation
         $request->validate([
             'nom' => 'required|string|max:255',
@@ -51,10 +52,10 @@ class CampagneController extends Controller
             'date_debut' => 'required|date',
             'date_fin' => 'required|date|after_or_equal:date_debut',
         ]);
-    
+
         // Gestion de l'upload de l'image
         $imagePath = $request->file('image')->store('campagnes', 'public'); // Stocke dans storage/app/public/campagnes
-    
+
         // Créer la campagne
         $campagne = Campagne::create([
             'nom' => $request->nom,
@@ -64,17 +65,17 @@ class CampagneController extends Controller
             'date_fin' => $request->date_fin,
             'badien_gox_id' => $badienGox->id,
         ]);
-    
+
         return response()->json($campagne, Response::HTTP_CREATED);
     }
-    
+
 
     /**
      * Display the specified resource.
      */
     public function show(Campagne $campagne)
     {
-        //
+        return response()->json($campagne, Response::HTTP_OK);
     }
 
     /**
@@ -92,16 +93,16 @@ class CampagneController extends Controller
     {
         $user = Auth::user();
         $badienGox = $user->badienGox;
-    
+
         if (!$badienGox) {
             return response()->json([
                 'message' => 'Badiene Gox non trouvée pour cet utilisateur'
             ], Response::HTTP_NOT_FOUND);
         }
-    
+
         // Récupérer la campagne
         $campagne = Campagne::where('badien_gox_id', $badienGox->id)->findOrFail($id);
-    
+
         // Validation
         $request->validate([
             'nom' => 'sometimes|string|max:255',
@@ -110,23 +111,23 @@ class CampagneController extends Controller
             'date_debut' => 'sometimes|date',
             'date_fin' => 'sometimes|date|after_or_equal:date_debut',
         ]);
-    
+
         // Gestion de l'upload de la nouvelle image si présente
         if ($request->hasFile('image')) {
             // Supprimer l'ancienne image si nécessaire
             Storage::disk('public')->delete($campagne->image);
-    
+
             // Stocker la nouvelle image
             $imagePath = $request->file('image')->store('campagnes', 'public');
             $campagne->image = $imagePath;
+            $campagne->save(); 
         }
-    
+
         // Mettre à jour les autres champs
-        $campagne->update($request->except('image'));
-    
+        $campagne->update($request->only(['nom', 'description', 'date_debut', 'date_fin']));
         return response()->json($campagne, Response::HTTP_OK);
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -135,23 +136,22 @@ class CampagneController extends Controller
     {
         $user = Auth::user();
         $badienGox = $user->badienGox;
-    
+
         if (!$badienGox) {
             return response()->json([
                 'message' => 'Badiene Gox non trouvée pour cet utilisateur'
             ], Response::HTTP_NOT_FOUND);
         }
-    
+
         // Récupérer la campagne
         $campagne = Campagne::where('badien_gox_id', $badienGox->id)->findOrFail($id);
-    
+
         // Supprimer l'image associée
         Storage::disk('public')->delete($campagne->image);
-    
+
         // Supprimer la campagne
         $campagne->delete();
-    
+
         return response()->json(['message' => 'Campagne supprimée'], Response::HTTP_OK);
     }
-    
 }

@@ -14,4 +14,8 @@ class Accouchement extends Model
     {
         return $this->belongsTo(Patiente::class);
     }
+    public function enfants()
+    {
+        return $this->hasMany(Enfant::class);
+    }
 }

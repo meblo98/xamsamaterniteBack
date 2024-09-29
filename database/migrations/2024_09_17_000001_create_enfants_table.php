@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('prenom');
             $table->string('lieu_naissance');
             $table->string('date_naissance');
+            $table->enum('sexe', ['M', 'F']);
             $table->foreignIdFor(Accouchement::class)->onDelete('cascade');
             $table->timestamps();
         });

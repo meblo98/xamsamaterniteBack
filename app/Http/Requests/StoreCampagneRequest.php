@@ -22,12 +22,12 @@ class StoreCampagneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'required|string',
-            'date_debut' => 'required|date',
-            'date_fin' => 'required|date|after_or_equal:date_debut',
-            'badien_gox_id' => 'required|exists:badien_goxes,id',
+            // 'nom' => 'required|string|max:255',
+            // 'description' => 'required|string',
+            // 'image' => 'required|string',
+            // 'date_debut' => 'required|date',
+            // 'date_fin' => 'required|date|after_or_equal:date_debut',
+            // 'badien_gox_id' => 'required|exists:badien_goxes,id',
         ];
     }
 }
