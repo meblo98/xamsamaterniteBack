@@ -27,7 +27,7 @@ namespace App\Http\Controllers\Annotations ;
 
  * @OA\PUT(
  *     path="/api/sages-femmes/{id}",
- *     summary="modifier une sage-femme",
+ *     summary="archiver une sage-femme",
  *     description="",
  *         security={
  *    {       "BearerAuth": {}}
@@ -39,18 +39,6 @@ namespace App\Http\Controllers\Annotations ;
  * ),
  *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
  * ),
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\MediaType(
- *             mediaType="application/x-www-form-urlencoded",
- *             @OA\Schema(
- *                 type="object",
- *                 properties={
- *                     @OA\Property(property="adresse", type="string"),
- *                 },
- *             ),
- *         ),
- *     ),
  *     tags={"gestion sage-femme"},
 *),
 
@@ -135,6 +123,36 @@ namespace App\Http\Controllers\Annotations ;
  *                     @OA\Property(property="telephone", type="string"),
  *                     @OA\Property(property="matricule", type="string"),
  *                     @OA\Property(property="structure_sante_id", type="integer"),
+ *                 },
+ *             ),
+ *         ),
+ *     ),
+ *     tags={"gestion sage-femme"},
+*),
+
+
+ * @OA\PUT(
+ *     path="/api/sages-femmes/3",
+ *     summary="modifier une sage-femme",
+ *     description="",
+ *         security={
+ *    {       "BearerAuth": {}}
+ *         },
+ * @OA\Response(response="200", description="OK"),
+ * @OA\Response(response="404", description="Not Found"),
+ * @OA\Response(response="500", description="Internal Server Error"),
+ *     @OA\Parameter(in="path", name="id", required=false, @OA\Schema(type="string")
+ * ),
+ *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
+ * ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="application/x-www-form-urlencoded",
+ *             @OA\Schema(
+ *                 type="object",
+ *                 properties={
+ *                     @OA\Property(property="adresse", type="string"),
  *                 },
  *             ),
  *         ),

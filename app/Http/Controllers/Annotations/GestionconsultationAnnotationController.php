@@ -52,35 +52,6 @@ namespace App\Http\Controllers\Annotations ;
  *                     @OA\Property(property="mois", type="integer"),
  *                     @OA\Property(property="poids", type="integer"),
  *                     @OA\Property(property="taille", type="integer"),
- *                     @OA\Property(property="PB", type="integer"),
- *                     @OA\Property(property="temperature", type="integer"),
- *                     @OA\Property(property="urine", type="string"),
- *                     @OA\Property(property="sucre", type="string"),
- *                     @OA\Property(property="TA", type="string"),
- *                     @OA\Property(property="pouls", type="integer"),
- *                     @OA\Property(property="EG", type="string"),
- *                     @OA\Property(property="muqueuse", type="string"),
- *                     @OA\Property(property="mollet", type="string"),
- *                     @OA\Property(property="OMI", type="string"),
- *                     @OA\Property(property="examen_seins", type="string"),
- *                     @OA\Property(property="hu", type="string"),
- *                     @OA\Property(property="speculum", type="string"),
- *                     @OA\Property(property="tv", type="string"),
- *                     @OA\Property(property="fer_ac_folique", type="string"),
- *                     @OA\Property(property="milda", type="string"),
- *                     @OA\Property(property="autre_traitement", type="string"),
- *                     @OA\Property(property="maf", type="string"),
- *                     @OA\Property(property="bdcf", type="string"),
- *                     @OA\Property(property="alb", type="string"),
- *                     @OA\Property(property="vat", type="string"),
- *                     @OA\Property(property="tpi", type="string"),
- *                     @OA\Property(property="palpation", type="string"),
- *                     @OA\Property(property="bdc", type="string"),
- *                     @OA\Property(property="presentation", type="string"),
- *                     @OA\Property(property="bassin", type="string"),
- *                     @OA\Property(property="pelvimetre_externe", type="string"),
- *                     @OA\Property(property="pelvimetre_interne", type="string"),
- *                     @OA\Property(property="biischiatique", type="integer"),
  *                     @OA\Property(property="trillat", type="integer"),
  *                     @OA\Property(property="lign_innominees", type="string"),
  *                     @OA\Property(property="autre_examen", type="string"),
@@ -100,6 +71,22 @@ namespace App\Http\Controllers\Annotations ;
  * @OA\GET(
  *     path="/api/consultations",
  *     summary="Afficher les consultation",
+ *     description="",
+ *         security={
+ *    {       "BearerAuth": {}}
+ *         },
+ * @OA\Response(response="200", description="OK"),
+ * @OA\Response(response="404", description="Not Found"),
+ * @OA\Response(response="500", description="Internal Server Error"),
+ *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
+ * ),
+ *     tags={"gestion consultation"},
+*),
+
+
+ * @OA\GET(
+ *     path="/api/consultations/patient/6",
+ *     summary="Afficher les consultation pour une patiente",
  *     description="",
  *         security={
  *    {       "BearerAuth": {}}

@@ -25,9 +25,25 @@ namespace App\Http\Controllers\Annotations ;
 
  *
 
+ * @OA\GET(
+ *     path="/api/vaccinations",
+ *     summary="Voire les vaccinations",
+ *     description="",
+ *         security={
+ *    {       "BearerAuth": {}}
+ *         },
+ * @OA\Response(response="200", description="OK"),
+ * @OA\Response(response="404", description="Not Found"),
+ * @OA\Response(response="500", description="Internal Server Error"),
+ *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
+ * ),
+ *     tags={"gestion des vaccination"},
+*),
+
+
  * @OA\POST(
- *     path="/api/campagnes",
- *     summary="Ajouter une campagne",
+ *     path="/api/vaccinations",
+ *     summary="Ajouter une vaccination",
  *     description="",
  *         security={
  *    {       "BearerAuth": {}}
@@ -36,18 +52,6 @@ namespace App\Http\Controllers\Annotations ;
  * @OA\Response(response="400", description="Bad Request"),
  * @OA\Response(response="401", description="Unauthorized"),
  * @OA\Response(response="403", description="Forbidden"),
- *     @OA\Parameter(in="path", name="nom", required=false, @OA\Schema(type="string")
- * ),
- *     @OA\Parameter(in="path", name="description", required=false, @OA\Schema(type="string")
- * ),
- *     @OA\Parameter(in="path", name="image", required=false, @OA\Schema(type="text")
- * ),
- *     @OA\Parameter(in="path", name="date_debut", required=false, @OA\Schema(type="string")
- * ),
- *     @OA\Parameter(in="path", name="date_fin", required=false, @OA\Schema(type="string")
- * ),
- *     @OA\Parameter(in="path", name="badien_gox_id", required=false, @OA\Schema(type="string")
- * ),
  *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
  * ),
  *     @OA\RequestBody(
@@ -58,21 +62,20 @@ namespace App\Http\Controllers\Annotations ;
  *                 type="object",
  *                 properties={
  *                     @OA\Property(property="nom", type="string"),
- *                     @OA\Property(property="image", type="string", format="binary"),
- *                     @OA\Property(property="description", type="string"),
- *                     @OA\Property(property="date_debut", type="string"),
- *                     @OA\Property(property="date_fin", type="string"),
+ *                     @OA\Property(property="observation", type="string"),
+ *                     @OA\Property(property="dose", type="string"),
+ *                     @OA\Property(property="enfant_id", type="integer"),
  *                 },
  *             ),
  *         ),
  *     ),
- *     tags={"gestion campagne"},
+ *     tags={"gestion des vaccination"},
 *),
 
 
  * @OA\GET(
- *     path="/api/campagnes",
- *     summary="afficher les campagnes",
+ *     path="/api/vaccinations/enfant/3",
+ *     summary="Voire les vaccinations pour un enfant",
  *     description="",
  *         security={
  *    {       "BearerAuth": {}}
@@ -80,27 +83,15 @@ namespace App\Http\Controllers\Annotations ;
  * @OA\Response(response="200", description="OK"),
  * @OA\Response(response="404", description="Not Found"),
  * @OA\Response(response="500", description="Internal Server Error"),
- *     @OA\Parameter(in="path", name="nom", required=false, @OA\Schema(type="string")
- * ),
- *     @OA\Parameter(in="path", name="description", required=false, @OA\Schema(type="string")
- * ),
- *     @OA\Parameter(in="path", name="image", required=false, @OA\Schema(type="text")
- * ),
- *     @OA\Parameter(in="path", name="date_debut", required=false, @OA\Schema(type="string")
- * ),
- *     @OA\Parameter(in="path", name="date_fin", required=false, @OA\Schema(type="string")
- * ),
- *     @OA\Parameter(in="path", name="badien_gox_id", required=false, @OA\Schema(type="string")
- * ),
  *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
  * ),
- *     tags={"gestion campagne"},
+ *     tags={"gestion des vaccination"},
 *),
 
 
  * @OA\GET(
- *     path="/api/campagnes/3",
- *     summary="afficher une campagne",
+ *     path="/api/vaccinations/{id}",
+ *     summary="Voir une vaccination",
  *     description="",
  *         security={
  *    {       "BearerAuth": {}}
@@ -112,32 +103,13 @@ namespace App\Http\Controllers\Annotations ;
  * ),
  *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
  * ),
- *     tags={"gestion campagne"},
+ *     tags={"gestion des vaccination"},
 *),
 
 
- * @OA\DELETE(
- *     path="/api/campagnes/{id}",
- *     summary="supprimer une campagne",
- *     description="",
- *         security={
- *    {       "BearerAuth": {}}
- *         },
- * @OA\Response(response="204", description="Deleted successfully"),
- * @OA\Response(response="401", description="Unauthorized"),
- * @OA\Response(response="403", description="Forbidden"),
- * @OA\Response(response="404", description="Not Found"),
- *     @OA\Parameter(in="path", name="id", required=false, @OA\Schema(type="string")
- * ),
- *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
- * ),
- *     tags={"gestion campagne"},
-*),
-
-
- * @OA\PATCH(
- *     path="/api/campagnes/1",
- *     summary="modifier une campagne",
+ * @OA\PUT(
+ *     path="/api/vaccinations/{id}",
+ *     summary="modifier une vaccination",
  *     description="",
  *         security={
  *    {       "BearerAuth": {}}
@@ -157,17 +129,36 @@ namespace App\Http\Controllers\Annotations ;
  *                 type="object",
  *                 properties={
  *                     @OA\Property(property="nom", type="string"),
- *                     @OA\Property(property="description", type="string"),
- *                     @OA\Property(property="date_debut", type="string"),
- *                     @OA\Property(property="date_fin", type="string"),
+ *                     @OA\Property(property="observation", type="string"),
+ *                     @OA\Property(property="dose", type="string"),
+ *                     @OA\Property(property="enfant_id", type="integer"),
  *                 },
  *             ),
  *         ),
  *     ),
- *     tags={"gestion campagne"},
+ *     tags={"gestion des vaccination"},
+*),
+
+
+ * @OA\DELETE(
+ *     path="/api/vaccinations/{id}",
+ *     summary="supprimer une vaccination",
+ *     description="",
+ *         security={
+ *    {       "BearerAuth": {}}
+ *         },
+ * @OA\Response(response="204", description="Deleted successfully"),
+ * @OA\Response(response="401", description="Unauthorized"),
+ * @OA\Response(response="403", description="Forbidden"),
+ * @OA\Response(response="404", description="Not Found"),
+ *     @OA\Parameter(in="path", name="id", required=false, @OA\Schema(type="string")
+ * ),
+ *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
+ * ),
+ *     tags={"gestion des vaccination"},
 *),
 
 
 */
 
- class GestioncampagneAnnotationController {}
+ class GestiondesvaccinationAnnotationController {}

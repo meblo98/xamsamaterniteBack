@@ -23,6 +23,1605 @@
         "multipart/form-data"
     ],
     "paths": {
+        "/api/structure": {
+            "get": {
+                "summary": "Afficher les structure",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Structure de santé"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Ajouter une structure",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Structure de santé"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "district_sanitaire_id": {
+                                        "type": "integer"
+                                    },
+                                    "lieu": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "nom": "Centre de Santé Philippe Maguilen Senghor",
+                                "district_sanitaire_id": 1,
+                                "lieu": "Dakar"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/structure/1": {
+            "get": {
+                "summary": "Afficher une structure",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Structure de santé"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            },
+            "put": {
+                "summary": "modifier une structure",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Structure de santé"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "district_sanitaire_id": {
+                                        "type": "integer"
+                                    },
+                                    "lieu": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "nom": "Centre de Santé Philippe Maguilen Senghor",
+                                "district_sanitaire_id": 1,
+                                "lieu": "Dakar"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/vaccinations": {
+            "get": {
+                "summary": "Voire les vaccinations",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des vaccination"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Ajouter une vaccination",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des vaccination"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "observation": {
+                                        "type": "string"
+                                    },
+                                    "dose": {
+                                        "type": "string"
+                                    },
+                                    "enfant_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "nom": "BCG",
+                                "observation": "Aucune réaction",
+                                "dose": "0.1 mL",
+                                "enfant_id": 1
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/vaccinations/enfant/3": {
+            "get": {
+                "summary": "Voire les vaccinations pour un enfant",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des vaccination"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/vaccinations/{id}": {
+            "get": {
+                "summary": "Voir une vaccination",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des vaccination"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            },
+            "put": {
+                "summary": "modifier une vaccination",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des vaccination"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "observation": {
+                                        "type": "string"
+                                    },
+                                    "dose": {
+                                        "type": "string"
+                                    },
+                                    "enfant_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "nom": "Polio",
+                                "observation": "Légère fièvre",
+                                "dose": "0.2 mL",
+                                "enfant_id": 2
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "supprimer une vaccination",
+                "description": "",
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des vaccination"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/enfants": {
+            "post": {
+                "summary": "Ajouter un enfant",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des enfants"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "sexe": {
+                                        "type": "string"
+                                    },
+                                    "lieu_naissance": {
+                                        "type": "string"
+                                    },
+                                    "date_naissance": {
+                                        "type": "string"
+                                    },
+                                    "accouchement_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "nom": "LO",
+                                "prenom": "Amy",
+                                "sexe": "F",
+                                "lieu_naissance": "Dakar",
+                                "date_naissance": "2024-09-18",
+                                "accouchement_id": 1
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "voir les enfants",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des enfants"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/enfants/{id}": {
+            "put": {
+                "summary": "modifier un enfant",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des enfants"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "lieu_naissance": {
+                                        "type": "string"
+                                    },
+                                    "date_naissance": {
+                                        "type": "string"
+                                    },
+                                    "accouchement_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "nom": "Ndiaye",
+                                "prenom": "Awa",
+                                "lieu_naissance": "Thiès",
+                                "date_naissance": "2024-09-19",
+                                "accouchement_id": 2
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "supprimer un enfant",
+                "description": "",
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des enfants"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/enfants/3": {
+            "get": {
+                "summary": "voir un enfant",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des enfants"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/accouchements": {
+            "post": {
+                "summary": "Ajouter un accouchement",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des accouchements"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "patiente_id": {
+                                        "type": "integer"
+                                    },
+                                    "lieu": {
+                                        "type": "string"
+                                    },
+                                    "mode": {
+                                        "type": "string"
+                                    },
+                                    "date": {
+                                        "type": "string"
+                                    },
+                                    "heure": {
+                                        "type": "string"
+                                    },
+                                    "terme": {
+                                        "type": "string"
+                                    },
+                                    "mois_grossesse": {
+                                        "type": "integer"
+                                    },
+                                    "debut_travail": {
+                                        "type": "string"
+                                    },
+                                    "perinee": {
+                                        "type": "string"
+                                    },
+                                    "pathologie": {
+                                        "type": "string"
+                                    },
+                                    "evolution_reanimation": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "patiente_id": 9,
+                                "lieu": "maternité",
+                                "mode": "naturel",
+                                "date": "2024-09-15",
+                                "heure": "12:30",
+                                "terme": "à terme",
+                                "mois_grossesse": 9,
+                                "debut_travail": "08:00",
+                                "perinee": "intact",
+                                "pathologie": "Aucune",
+                                "evolution_reanimation": "favorable"
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "lister les accouchements",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des accouchements"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/accouchements/{id}": {
+            "put": {
+                "summary": "modifier un accouchement",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des accouchements"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "patiente_id": {
+                                        "type": "integer"
+                                    },
+                                    "lieu": {
+                                        "type": "string"
+                                    },
+                                    "mode": {
+                                        "type": "string"
+                                    },
+                                    "date": {
+                                        "type": "string"
+                                    },
+                                    "heure": {
+                                        "type": "string"
+                                    },
+                                    "terme": {
+                                        "type": "string"
+                                    },
+                                    "mois_grossesse": {
+                                        "type": "integer"
+                                    },
+                                    "debut_travail": {
+                                        "type": "string"
+                                    },
+                                    "perinee": {
+                                        "type": "string"
+                                    },
+                                    "pathologie": {
+                                        "type": "string"
+                                    },
+                                    "evolution_reanimation": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "patiente_id": 2,
+                                "lieu": "domicile",
+                                "mode": "césarienne",
+                                "date": "2024-09-16",
+                                "heure": "14:45",
+                                "terme": "prématuré",
+                                "mois_grossesse": 7,
+                                "debut_travail": "10:00",
+                                "perinee": "episiotomie",
+                                "pathologie": "Hypertension",
+                                "evolution_reanimation": "transfert"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "supprimer un accouchement",
+                "description": "",
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des accouchements"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            },
+            "get": {
+                "summary": "lister un accouchement",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des accouchements"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/accouchements/patiente/9": {
+            "get": {
+                "summary": "lister un accouchement pour une patiente",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des accouchements"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/visites": {
+            "post": {
+                "summary": "Ajouter une visite",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des visites"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "libelle": "Visite prénatale"
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "voir les visites",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des visites"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/visites/{id}": {
+            "put": {
+                "summary": "modifier une visite",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des visites"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "supprimer une visite",
+                "description": "",
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des visites"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            },
+            "get": {
+                "summary": "voir une visite",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion des visites"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
         "/api/conseils": {
             "post": {
                 "summary": "Ajouter un conseil",
@@ -358,7 +1957,44 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ]
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "date_debut": {
+                                        "type": "string"
+                                    },
+                                    "date_fin": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "nom": "campagne de sensibilisation2",
+                                "image": {
+                                    "type": "string",
+                                    "format": "binary"
+                                },
+                                "description": "Lorem ipsum dolor sit amet",
+                                "date_debut": "2024-01-01",
+                                "date_fin": "2024-11-21"
+                            }
+                        }
+                    }
+                }
             },
             "get": {
                 "summary": "afficher les campagnes",
@@ -434,7 +2070,7 @@
                 ]
             }
         },
-        "/api/campagnes/{id}": {
+        "/api/campagnes/3": {
             "get": {
                 "summary": "afficher une campagne",
                 "description": "",
@@ -482,7 +2118,9 @@
                         "type": "string"
                     }
                 ]
-            },
+            }
+        },
+        "/api/campagnes/{id}": {
             "delete": {
                 "summary": "supprimer une campagne",
                 "description": "",
@@ -539,8 +2177,10 @@
                         "type": "string"
                     }
                 ]
-            },
-            "put": {
+            }
+        },
+        "/api/campagnes/1": {
+            "patch": {
                 "summary": "modifier une campagne",
                 "description": "",
                 "responses": {
@@ -586,7 +2226,36 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ]
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "date_debut": {
+                                        "type": "string"
+                                    },
+                                    "date_fin": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "nom": "campagne de sensibilisation",
+                                "description": "Lorem ipsum dolor sit amet",
+                                "date_debut": "2024-10-01",
+                                "date_fin": "2024-11-28"
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/badiene-gox": {
@@ -667,8 +2336,8 @@
                             "example": {
                                 "nom": "LO",
                                 "prenom": "Marie",
-                                "email": "marie.diop@example.com",
-                                "telephone": "770000000",
+                                "email": "marie.lo@example.com",
+                                "telephone": "999885577",
                                 "adresse": "123 Rue, Dakar"
                             }
                         }
@@ -752,7 +2421,7 @@
                 }
             }
         },
-        "/api/badiene-gox/{id}": {
+        "/api/badiene-gox/9": {
             "put": {
                 "summary": "modifier une badiene-gox",
                 "description": "",
@@ -816,7 +2485,7 @@
                                         "type": "string"
                                     },
                                     "telephone": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "adresse": {
                                         "type": "string"
@@ -826,14 +2495,16 @@
                             "example": {
                                 "prenom": "Fatou",
                                 "nom": "Diouf",
-                                "email": "fatou.diouf@example.com",
-                                "telephone": "770000001",
+                                "email": "fatou.diouf1@example.com",
+                                "telephone": 770008801,
                                 "adresse": "456 Rue, Kaolack"
                             }
                         }
                     }
                 }
-            },
+            }
+        },
+        "/api/badiene-gox/{id}": {
             "delete": {
                 "summary": "supprimer une badiene-gox",
                 "description": "",
@@ -995,16 +2666,59 @@
                                 }
                             },
                             "example": {
-                                "patiente_id": 1,
+                                "patiente_id": 14,
                                 "visite_id": 10,
                                 "date_rv": "2024-09-21"
                             }
                         }
                     }
                 }
+            },
+            "get": {
+                "summary": "Afficher les rendez-vous",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion rendez-vous"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
             }
         },
-        "/api/rv/{id}": {
+        "/api/rv/4": {
             "get": {
                 "summary": "Afficher un rendez-vous",
                 "description": "",
@@ -1052,7 +2766,54 @@
                         "type": "string"
                     }
                 ]
-            },
+            }
+        },
+        "/api/patients/6/rendezvous": {
+            "get": {
+                "summary": "Afficher les rendez-vous pour une patiente",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion rendez-vous"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/rv/{id}": {
             "delete": {
                 "summary": "supprimer un rendez-vous",
                 "description": "",
@@ -1180,51 +2941,6 @@
                 }
             }
         },
-        "/api/rv/": {
-            "get": {
-                "summary": "Afficher les rendez-vous",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "gestion rendez-vous"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
         "/api/consultations": {
             "post": {
                 "summary": "Ajouter une consultation",
@@ -1304,93 +3020,6 @@
                                     "taille": {
                                         "type": "integer"
                                     },
-                                    "PB": {
-                                        "type": "integer"
-                                    },
-                                    "temperature": {
-                                        "type": "integer"
-                                    },
-                                    "urine": {
-                                        "type": "string"
-                                    },
-                                    "sucre": {
-                                        "type": "string"
-                                    },
-                                    "TA": {
-                                        "type": "string"
-                                    },
-                                    "pouls": {
-                                        "type": "integer"
-                                    },
-                                    "EG": {
-                                        "type": "string"
-                                    },
-                                    "muqueuse": {
-                                        "type": "string"
-                                    },
-                                    "mollet": {
-                                        "type": "string"
-                                    },
-                                    "OMI": {
-                                        "type": "string"
-                                    },
-                                    "examen_seins": {
-                                        "type": "string"
-                                    },
-                                    "hu": {
-                                        "type": "string"
-                                    },
-                                    "speculum": {
-                                        "type": "string"
-                                    },
-                                    "tv": {
-                                        "type": "string"
-                                    },
-                                    "fer_ac_folique": {
-                                        "type": "string"
-                                    },
-                                    "milda": {
-                                        "type": "string"
-                                    },
-                                    "autre_traitement": {
-                                        "type": "string"
-                                    },
-                                    "maf": {
-                                        "type": "string"
-                                    },
-                                    "bdcf": {
-                                        "type": "string"
-                                    },
-                                    "alb": {
-                                        "type": "string"
-                                    },
-                                    "vat": {
-                                        "type": "string"
-                                    },
-                                    "tpi": {
-                                        "type": "string"
-                                    },
-                                    "palpation": {
-                                        "type": "string"
-                                    },
-                                    "bdc": {
-                                        "type": "string"
-                                    },
-                                    "presentation": {
-                                        "type": "string"
-                                    },
-                                    "bassin": {
-                                        "type": "string"
-                                    },
-                                    "pelvimetre_externe": {
-                                        "type": "string"
-                                    },
-                                    "pelvimetre_interne": {
-                                        "type": "string"
-                                    },
-                                    "biischiatique": {
-                                        "type": "integer"
-                                    },
                                     "trillat": {
                                         "type": "integer"
                                     },
@@ -1425,41 +3054,12 @@
                                 "mois": 7,
                                 "poids": 68.5,
                                 "taille": 165,
-                                "PB": 29,
-                                "temperature": 37.2,
-                                "urine": "Normal",
-                                "sucre": "Absence",
-                                "TA": "120.80",
-                                "pouls": 72,
-                                "EG": "Bon",
-                                "muqueuse": "Rose",
-                                "mollet": "Normal",
-                                "OMI": "Léger",
-                                "examen_seins": "Normal",
-                                "hu": "32 cm",
-                                "speculum": "Normal",
-                                "tv": "Col long, fermé",
-                                "fer_ac_folique": "Oui",
-                                "milda": "Distribué",
-                                "autre_traitement": "Suppléments en fer",
-                                "maf": "Présents",
-                                "bdcf": "Réguliers",
-                                "alb": "Absent",
-                                "vat": "Complétée",
-                                "tpi": "Administré",
-                                "palpation": "Ceinture pelvienne normale",
-                                "bdc": "Position céphalique",
-                                "presentation": "Céphalique",
-                                "bassin": "Normaux",
-                                "pelvimetre_externe": "Pas de pathologie",
-                                "pelvimetre_interne": "Pas de pathologie",
-                                "biischiatique": 11.5,
                                 "trillat": 10.8,
                                 "lign_innominees": "Normales",
                                 "autre_examen": "RAS",
                                 "resultat": "Consultation normale",
                                 "lieu_accouchement_apre_consentement": "Hôpital régional",
-                                "patiente_id": 1,
+                                "patiente_id": 5,
                                 "visite_id": 1,
                                 "traitement": "Continuer les suppléments de fer et hydratation"
                             }
@@ -1469,6 +3069,51 @@
             },
             "get": {
                 "summary": "Afficher les consultation",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion consultation"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/consultations/patient/6": {
+            "get": {
+                "summary": "Afficher les consultation pour une patiente",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1861,7 +3506,7 @@
         },
         "/api/sages-femmes/{id}": {
             "put": {
-                "summary": "modifier une sage-femme",
+                "summary": "archiver une sage-femme",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1906,24 +3551,7 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "adresse": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "adresse": "456 Avenue Nouvelle, Dakar"
-                            }
-                        }
-                    }
-                }
+                ]
             },
             "get": {
                 "summary": "Afficher une sage-femme",
@@ -2159,9 +3787,9 @@
                                 "prenom": "Aminata",
                                 "nom": "Diop",
                                 "adresse": "Keur Madiabel, Kaolack",
-                                "email": "lomouhamedelbachir@gmail.com",
-                                "telephone": "773162001",
-                                "matricule": "SF2024001",
+                                "email": "lomuhamedel3bachir@gmail.com",
+                                "telephone": "788630077",
+                                "matricule": "SF80240051",
                                 "structure_sante_id": 1
                             }
                         }
@@ -2169,7 +3797,74 @@
                 }
             }
         },
-        "/api/patientes/{id}": {
+        "/api/sages-femmes/3": {
+            "put": {
+                "summary": "modifier une sage-femme",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion sage-femme"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "adresse": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "adresse": "456 Avenue Nouvelle, Dakar"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/patientes/3": {
             "get": {
                 "summary": "Afficher une patiente",
                 "description": "",
@@ -2217,7 +3912,54 @@
                         "type": "string"
                     }
                 ]
-            },
+            }
+        },
+        "/api/patientes/": {
+            "get": {
+                "summary": "Afficher les patientes",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestion patiente"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/patientes/{id}": {
             "delete": {
                 "summary": "supprimer une patiente",
                 "description": "",
@@ -2274,8 +4016,10 @@
                         "type": "string"
                     }
                 ]
-            },
-            "put": {
+            }
+        },
+        "/api/patientes/5": {
+            "patch": {
                 "summary": "modifier une patiente",
                 "description": "",
                 "responses": {
@@ -2361,7 +4105,7 @@
                                 "prenom": "Aminata",
                                 "nom": "Diop",
                                 "adresse": "Keur Madiabel, Kaolack",
-                                "email": "meblobarham@gmail.com",
+                                "email": "test@gmail.com",
                                 "telephone": "773165001",
                                 "lieu_de_naissance": "Dakar",
                                 "type": "Enceinte",
@@ -2371,51 +4115,6 @@
                         }
                     }
                 }
-            }
-        },
-        "/api/patientes/": {
-            "get": {
-                "summary": "Afficher les patientes",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "gestion patiente"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
             }
         },
         "/api/patientes": {
@@ -2509,8 +4208,8 @@
                                 "prenom": "Aminata",
                                 "nom": "Diop",
                                 "adresse": "Keur Madiabel, Kaolack",
-                                "email": "meblobarhamalo@gmail.com",
-                                "telephone": "703162000",
+                                "email": "meblobarhamalolo@gmail.com",
+                                "telephone": "603162000",
                                 "lieu_de_naissance": "Dakar",
                                 "type": "Enceinte",
                                 "date_de_naissance": "1990-01-01",
@@ -2588,9 +4287,160 @@
                                 }
                             },
                             "example": {
-                                "login": "773162001",
-                                "password": "EdTXPkSu5fef"
+                                "login": "sage.femme@gmail.com",
+                                "password": "passer123"
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/profil": {
+            "post": {
+                "summary": "profil",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Auth"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "photo": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "adresse": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "telephone": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "photo": {
+                                    "type": "string",
+                                    "format": "binary"
+                                },
+                                "prenom": "marie",
+                                "nom": "lo",
+                                "adresse": "sam",
+                                "email": "marie.lo@example.com\"",
+                                "telephone": "999885577"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user-profile": {
+            "get": {
+                "summary": "recup profil",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Auth"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {}
+                            },
+                            "example": {}
                         }
                     }
                 }

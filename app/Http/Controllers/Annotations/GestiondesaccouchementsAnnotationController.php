@@ -26,8 +26,8 @@ namespace App\Http\Controllers\Annotations ;
  *
 
  * @OA\POST(
- *     path="/api/rv",
- *     summary="Ajouter un rendez-vous",
+ *     path="/api/accouchements",
+ *     summary="Ajouter un accouchement",
  *     description="",
  *         security={
  *    {       "BearerAuth": {}}
@@ -46,19 +46,27 @@ namespace App\Http\Controllers\Annotations ;
  *                 type="object",
  *                 properties={
  *                     @OA\Property(property="patiente_id", type="integer"),
- *                     @OA\Property(property="visite_id", type="integer"),
- *                     @OA\Property(property="date_rv", type="string"),
+ *                     @OA\Property(property="lieu", type="string"),
+ *                     @OA\Property(property="mode", type="string"),
+ *                     @OA\Property(property="date", type="string"),
+ *                     @OA\Property(property="heure", type="string"),
+ *                     @OA\Property(property="terme", type="string"),
+ *                     @OA\Property(property="mois_grossesse", type="integer"),
+ *                     @OA\Property(property="debut_travail", type="string"),
+ *                     @OA\Property(property="perinee", type="string"),
+ *                     @OA\Property(property="pathologie", type="string"),
+ *                     @OA\Property(property="evolution_reanimation", type="string"),
  *                 },
  *             ),
  *         ),
  *     ),
- *     tags={"gestion rendez-vous"},
+ *     tags={"gestion des accouchements"},
 *),
 
 
  * @OA\GET(
- *     path="/api/rv",
- *     summary="Afficher les rendez-vous",
+ *     path="/api/accouchements",
+ *     summary="lister les accouchements",
  *     description="",
  *         security={
  *    {       "BearerAuth": {}}
@@ -68,66 +76,13 @@ namespace App\Http\Controllers\Annotations ;
  * @OA\Response(response="500", description="Internal Server Error"),
  *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
  * ),
- *     tags={"gestion rendez-vous"},
-*),
-
-
- * @OA\GET(
- *     path="/api/rv/4",
- *     summary="Afficher un rendez-vous",
- *     description="",
- *         security={
- *    {       "BearerAuth": {}}
- *         },
- * @OA\Response(response="200", description="OK"),
- * @OA\Response(response="404", description="Not Found"),
- * @OA\Response(response="500", description="Internal Server Error"),
- *     @OA\Parameter(in="path", name="id", required=false, @OA\Schema(type="string")
- * ),
- *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
- * ),
- *     tags={"gestion rendez-vous"},
-*),
-
-
- * @OA\GET(
- *     path="/api/patients/6/rendezvous",
- *     summary="Afficher les rendez-vous pour une patiente",
- *     description="",
- *         security={
- *    {       "BearerAuth": {}}
- *         },
- * @OA\Response(response="200", description="OK"),
- * @OA\Response(response="404", description="Not Found"),
- * @OA\Response(response="500", description="Internal Server Error"),
- *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
- * ),
- *     tags={"gestion rendez-vous"},
-*),
-
-
- * @OA\DELETE(
- *     path="/api/rv/{id}",
- *     summary="supprimer un rendez-vous",
- *     description="",
- *         security={
- *    {       "BearerAuth": {}}
- *         },
- * @OA\Response(response="204", description="Deleted successfully"),
- * @OA\Response(response="401", description="Unauthorized"),
- * @OA\Response(response="403", description="Forbidden"),
- * @OA\Response(response="404", description="Not Found"),
- *     @OA\Parameter(in="path", name="id", required=false, @OA\Schema(type="string")
- * ),
- *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
- * ),
- *     tags={"gestion rendez-vous"},
+ *     tags={"gestion des accouchements"},
 *),
 
 
  * @OA\PUT(
- *     path="/api/rv/{id}",
- *     summary="modifier un rendez-vous",
+ *     path="/api/accouchements/{id}",
+ *     summary="modifier un accouchement",
  *     description="",
  *         security={
  *    {       "BearerAuth": {}}
@@ -146,16 +101,80 @@ namespace App\Http\Controllers\Annotations ;
  *             @OA\Schema(
  *                 type="object",
  *                 properties={
- *                     @OA\Property(property="visite_id", type="integer"),
- *                     @OA\Property(property="date_rv", type="string"),
+ *                     @OA\Property(property="patiente_id", type="integer"),
+ *                     @OA\Property(property="lieu", type="string"),
+ *                     @OA\Property(property="mode", type="string"),
+ *                     @OA\Property(property="date", type="string"),
+ *                     @OA\Property(property="heure", type="string"),
+ *                     @OA\Property(property="terme", type="string"),
+ *                     @OA\Property(property="mois_grossesse", type="integer"),
+ *                     @OA\Property(property="debut_travail", type="string"),
+ *                     @OA\Property(property="perinee", type="string"),
+ *                     @OA\Property(property="pathologie", type="string"),
+ *                     @OA\Property(property="evolution_reanimation", type="string"),
  *                 },
  *             ),
  *         ),
  *     ),
- *     tags={"gestion rendez-vous"},
+ *     tags={"gestion des accouchements"},
+*),
+
+
+ * @OA\DELETE(
+ *     path="/api/accouchements/{id}",
+ *     summary="supprimer un accouchement",
+ *     description="",
+ *         security={
+ *    {       "BearerAuth": {}}
+ *         },
+ * @OA\Response(response="204", description="Deleted successfully"),
+ * @OA\Response(response="401", description="Unauthorized"),
+ * @OA\Response(response="403", description="Forbidden"),
+ * @OA\Response(response="404", description="Not Found"),
+ *     @OA\Parameter(in="path", name="id", required=false, @OA\Schema(type="string")
+ * ),
+ *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
+ * ),
+ *     tags={"gestion des accouchements"},
+*),
+
+
+ * @OA\GET(
+ *     path="/api/accouchements/{id}",
+ *     summary="lister un accouchement",
+ *     description="",
+ *         security={
+ *    {       "BearerAuth": {}}
+ *         },
+ * @OA\Response(response="200", description="OK"),
+ * @OA\Response(response="404", description="Not Found"),
+ * @OA\Response(response="500", description="Internal Server Error"),
+ *     @OA\Parameter(in="path", name="id", required=false, @OA\Schema(type="string")
+ * ),
+ *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
+ * ),
+ *     tags={"gestion des accouchements"},
+*),
+
+
+ * @OA\GET(
+ *     path="/api/accouchements/patiente/9",
+ *     summary="lister un accouchement pour une patiente",
+ *     description="",
+ *         security={
+ *    {       "BearerAuth": {}}
+ *         },
+ * @OA\Response(response="200", description="OK"),
+ * @OA\Response(response="404", description="Not Found"),
+ * @OA\Response(response="500", description="Internal Server Error"),
+ *     @OA\Parameter(in="path", name="id", required=false, @OA\Schema(type="string")
+ * ),
+ *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
+ * ),
+ *     tags={"gestion des accouchements"},
 *),
 
 
 */
 
- class GestionrendezvousAnnotationController {}
+ class GestiondesaccouchementsAnnotationController {}

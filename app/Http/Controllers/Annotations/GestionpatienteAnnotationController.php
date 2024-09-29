@@ -26,7 +26,7 @@ namespace App\Http\Controllers\Annotations ;
  *
 
  * @OA\GET(
- *     path="/api/patientes/{id}",
+ *     path="/api/patientes/3",
  *     summary="Afficher une patiente",
  *     description="",
  *         security={
@@ -37,6 +37,22 @@ namespace App\Http\Controllers\Annotations ;
  * @OA\Response(response="500", description="Internal Server Error"),
  *     @OA\Parameter(in="path", name="id", required=false, @OA\Schema(type="string")
  * ),
+ *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
+ * ),
+ *     tags={"gestion patiente"},
+*),
+
+
+ * @OA\GET(
+ *     path="/api/patientes/",
+ *     summary="Afficher les patientes",
+ *     description="",
+ *         security={
+ *    {       "BearerAuth": {}}
+ *         },
+ * @OA\Response(response="200", description="OK"),
+ * @OA\Response(response="404", description="Not Found"),
+ * @OA\Response(response="500", description="Internal Server Error"),
  *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
  * ),
  *     tags={"gestion patiente"},
@@ -62,8 +78,8 @@ namespace App\Http\Controllers\Annotations ;
 *),
 
 
- * @OA\PUT(
- *     path="/api/patientes/{id}",
+ * @OA\PATCH(
+ *     path="/api/patientes/5",
  *     summary="modifier une patiente",
  *     description="",
  *         security={
@@ -96,22 +112,6 @@ namespace App\Http\Controllers\Annotations ;
  *             ),
  *         ),
  *     ),
- *     tags={"gestion patiente"},
-*),
-
-
- * @OA\GET(
- *     path="/api/patientes/",
- *     summary="Afficher les patientes",
- *     description="",
- *         security={
- *    {       "BearerAuth": {}}
- *         },
- * @OA\Response(response="200", description="OK"),
- * @OA\Response(response="404", description="Not Found"),
- * @OA\Response(response="500", description="Internal Server Error"),
- *     @OA\Parameter(in="header", name="User-Agent", required=false, @OA\Schema(type="string")
- * ),
  *     tags={"gestion patiente"},
 *),
 

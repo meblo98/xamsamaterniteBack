@@ -91,7 +91,7 @@ namespace App\Http\Controllers\Annotations ;
 
 
  * @OA\PUT(
- *     path="/api/badiene-gox/{id}",
+ *     path="/api/badiene-gox/9",
  *     summary="modifier une badiene-gox",
  *     description="",
  *         security={
@@ -114,7 +114,7 @@ namespace App\Http\Controllers\Annotations ;
  *                     @OA\Property(property="prenom", type="string"),
  *                     @OA\Property(property="nom", type="string"),
  *                     @OA\Property(property="email", type="string"),
- *                     @OA\Property(property="telephone", type="string"),
+ *                     @OA\Property(property="telephone", type="integer"),
  *                     @OA\Property(property="adresse", type="string"),
  *                 },
  *             ),
