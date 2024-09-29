@@ -25,6 +25,7 @@ Route::get('/user', function (Request $request) {
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::post('profil',[AuthController::class, 'update']);
+Route::get('user-profile',[AuthController::class, 'getUserProfile']);
 
 
 //  gestion des sage-femmes

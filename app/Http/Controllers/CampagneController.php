@@ -75,7 +75,12 @@ class CampagneController extends Controller
      */
     public function show(Campagne $campagne)
     {
-        return response()->json($campagne, Response::HTTP_OK);
+         // Récupère le chemin de l'image stockée
+    $imageUrl = Storage::url($campagne->image);
+    return response()->json([
+        'campagne' => $campagne,
+        'image_url' => $imageUrl // Retourne l'URL de l'image
+    ], Response::HTTP_OK);
     }
 
     /**
@@ -120,7 +125,7 @@ class CampagneController extends Controller
             // Stocker la nouvelle image
             $imagePath = $request->file('image')->store('campagnes', 'public');
             $campagne->image = $imagePath;
-            $campagne->save(); 
+            $campagne->save();
         }
 
         // Mettre à jour les autres champs

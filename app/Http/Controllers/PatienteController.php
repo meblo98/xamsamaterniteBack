@@ -62,11 +62,12 @@ class PatienteController extends Controller
         Mail::to($user->email)->send(new PatienteRegistered($user, $password));
 
         // Envoyer le SMS avec le mot de passe
-        $this->sendSms($user->telephone, $password);
+        // $this->sendSms($user->telephone, $password);
 
         return response()->json([
             'message' => 'Patiente créée avec succès',
             'patiente' => $patiente,
+            'mot de passe' => $password,
         ], 201);
     }
 

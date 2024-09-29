@@ -78,10 +78,10 @@ class AuthController extends Controller
 
     public function update(Request $request)
     {
-         // Récupérer l'utilisateur connecté
-         $user = auth()->user();
+        // Récupérer l'utilisateur connecté
+        $user = auth()->user();
 
-         // Valider les données d'entrée
+        // Valider les données d'entrée
         $request->validate([
             // 'prenom' => 'nullable|string|max:255',
             // 'nom' => 'nullable|string|max:255',
@@ -93,15 +93,15 @@ class AuthController extends Controller
             // 'password_confirmation' => 'nullable|string|min:8',
             // 'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-    
-       
+
+
         // Mettre à jour les informations de l'utilisateur
         $user->prenom = $request->input('prenom');
         $user->nom = $request->input('nom');
         $user->adresse = $request->input('adresse');
         $user->email = $request->input('email');
         $user->telephone = $request->input('telephone');
-    
+
         // Mettre à jour la photo de profil si fournie
         if ($request->hasFile('photo')) {
             // Supprimer l'ancienne photo si elle existe
@@ -114,7 +114,7 @@ class AuthController extends Controller
             $photo->storeAs('public/photos', $filename);
             $user->photo = 'photos/' . $filename;
         }
-    
+
         // Mettre à jour le mot de passe si l'ancien mot de passe et le nouveau sont fournis
         if ($request->filled('old_password') && $request->filled('password')) {
             if (!Hash::check($request->input('old_password'), $user->password)) {
@@ -122,10 +122,10 @@ class AuthController extends Controller
             }
             $user->password = Hash::make($request->input('password'));
         }
-    
+
         // Enregistrer les modifications
         $user->save();
-    
+
         // Retourner la réponse avec les informations de l'utilisateur mis à jour
         return response()->json([
             'message' => 'Profil mis à jour avec succès',
@@ -136,10 +136,18 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'adresse' => $user->adresse,
                 'telephone' => $user->telephone,
-                'photo' => $user->photo ? asset('storage/' . $user->photo) : null, // Chemin vers la photo
+                'photo' => $user->photo ? asset('storage/app/public' . $user->photo) : null, // Chemin vers la photo
                 'roles' => $user->getRoleNames(), // Rôles de l'utilisateur
             ]
         ], 200);
     }
-    
+    public function getUserProfile()
+    {
+        $user = auth()->user();
+
+        return response()->json([
+            'user' => $user,
+            'profile_image' => Storage::url($user->profile_image), // Retourne l'URL publique de l'image
+        ]);
+    }
 }

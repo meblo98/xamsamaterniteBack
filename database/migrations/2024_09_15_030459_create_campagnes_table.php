@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nom');
             $table->text('description');
             $table->string('image');
+            $table->string('lieu');
             $table->date('date_debut');
             $table->date('date_fin');
             $table->foreignIdFor(BadienGox::class)->onDelete('cascade');
