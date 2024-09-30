@@ -39,4 +39,10 @@ class Patiente extends Model
     {
         return $this->hasOne(Accouchement::class);
     }
+
+    public function badiene()
+    {
+        return $this->belongsTo(BadienGox::class, 'badien_gox_id');
+    }
+
 }

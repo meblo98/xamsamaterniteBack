@@ -35,9 +35,9 @@ class RendezVousController extends Controller
         ], 200);
     }
 
-    public function getRendezvousByPatiente($id_patiente)
+    public function getRendezvousByPatiente($id)
     {
-        $patiente = Patiente::find($id_patiente);
+        $patiente = Patiente::find($id);
         $rendezvous = $patiente->rendezvous->load('visite');
         return response()->json([
             'mes_rv' => $rendezvous

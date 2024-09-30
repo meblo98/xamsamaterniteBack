@@ -144,10 +144,40 @@ class AuthController extends Controller
     public function getUserProfile()
     {
         $user = auth()->user();
-
-        return response()->json([
-            'user' => $user,
-            'profile_image' => Storage::url($user->profile_image), // Retourne l'URL publique de l'image
-        ]);
+        $role = $user->getRoleNames()[0]; // Get the first role (assuming a user has only one role)
+    
+        $userData = [
+            'id' => $user->id,
+            'prenom' => $user->prenom,
+            'nom' => $user->nom,
+            'email' => $user->email,
+            'telephone' => $user->telephone,
+            'adresse' => $user->adresse,
+            'photo' => $user->photo ? asset('storage/app/public' . $user->photo) : null, // Chemin vers la photo
+        ];
+    
+        switch ($role) {
+            case 'sage-femme':
+                $sageFemme = SageFemme::where('user_id', $user->id)->first();
+                return response()->json(['user' => $userData, 'profil' => $sageFemme]);
+                break;
+            case 'patiente':
+                $patiente = Patiente::where('user_id', $user->id)->first();
+                return response()->json(['user' => $userData, 'profil' => $patiente]);
+                break;
+            case 'badiene-gox':
+                $badiene = BadienGox::where('user_id', $user->id)->first();
+                return response()->json(['user' => $userData, 'profil' => $badiene]);
+                break;
+            case 'admin':
+                $admin = Admin::where('user_id', $user->id)->first();
+                return response()->json(['user' => $userData, 'profil' => $admin]);
+                break;
+    
+            default:
+                // If the role is not recognized, you can return an error message or a default response
+                return response()->json(['error' => 'Unknown role'], 404);
+                break;
+        }
     }
 }
