@@ -19,4 +19,7 @@ class BadienGox extends Model
     {
         return $this->belongsTo(SageFemme::class);
     }
+    public function patienetes(){
+        return $this->hasMany(Patiente::class);
+    }
 }

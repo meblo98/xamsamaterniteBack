@@ -46,7 +46,7 @@ Route::get('consultations/patient/{patientId}', [ConsultatonController::class, '
 // gestion des rendez-vous
 
 Route::resource('rv', RendezVousController::class);
-Route::get('/patients/{patiente}/rendezvous', [RendezVousController::class, 'getRendezvousByPatiente']);
+Route::get('/patients/{id}/rendezvous', [RendezVousController::class, 'getRendezvousByPatiente']);
 
 // gestion des badiène gox
 
