@@ -56,6 +56,7 @@ class PatienteController extends Controller
             'profession' => $request->profession,
             'type' => $request->type,
             'sage_femme_id' => $sageFemmeId,
+            'badien_gox_id' => $request->badien_gox_id,
         ]);
 
         // Envoi de l'email
@@ -127,6 +128,7 @@ class PatienteController extends Controller
         $patiente->update([
             'lieu_de_naissance' => $request->lieu_de_naissance,
             'date_de_naissance' => $request->date_de_naissance,
+            'badien_gox_id' => $request->badien_gox_id,
             'profession' => $request->profession,
             'type' => $request->type,
         ]);
@@ -161,4 +163,6 @@ class PatienteController extends Controller
             'message' => 'Patiente archivée avec succès',
         ]);
     }
+
+
 }
