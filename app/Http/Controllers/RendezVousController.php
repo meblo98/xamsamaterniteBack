@@ -22,18 +22,24 @@ class RendezVousController extends Controller
             $rendez_vouses = RendezVous::where('patiente_id', $user->id)
                 ->with(['patiente', 'sageFemme', 'visite', 'vaccination'])
                 ->get();
+            if($rendez_vouses->isEmpty()){
+                return response()->json(['message' => 'Aucune patiente trouvé']);
+            }
         } elseif ($user->hasRole('sage-femme')) {
             $rendez_vouses = RendezVous::where('sage_femme_id', $user->id)
                 ->with(['patiente', 'sageFemme', 'visite', 'vaccination'])
                 ->get();
+                if($rendez_vouses->isEmpty()){
+                    return response()->json(['message'=> 'Aucune patiente trouvé']);
         } else {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'non authorisé'], 401);
         }
 
         return response()->json([
             'Liste_des_rendez-vous' => $rendez_vouses
         ], 200);
     }
+}
 
     public function getRendezvousByPatiente($id)
     {
@@ -116,9 +122,9 @@ class RendezVousController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RendezVous $rendezVous)
+    public function destroy($id)
     {
-        $rendezVous = RendezVous::findOrFail($rendezVous);
+        $rendezVous = RendezVous::findOrFail($id);
         $rendezVous->delete();
 
         return response()->json([

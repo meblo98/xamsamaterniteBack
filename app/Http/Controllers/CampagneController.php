@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCampagneRequest;
 use App\Http\Requests\UpdateCampagneRequest;
 use App\Models\Campagne;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -48,7 +49,8 @@ class CampagneController extends Controller
         $request->validate([
             'nom' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Valider le type de fichier
+            'lieu' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048', // Valider le type de fichier
             'date_debut' => 'required|date',
             'date_fin' => 'required|date|after_or_equal:date_debut',
         ]);
@@ -59,6 +61,7 @@ class CampagneController extends Controller
         // Créer la campagne
         $campagne = Campagne::create([
             'nom' => $request->nom,
+            'lieu' => $request->lieu,
             'description' => $request->description,
             'image' => $imagePath, // Enregistrer le chemin de l'image dans la base de données
             'date_debut' => $request->date_debut,
@@ -94,7 +97,7 @@ class CampagneController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCampagneRequest $request, $id)
+    public function modifier(Request $request, $id)
     {
         $user = Auth::user();
         $badienGox = $user->badienGox;
@@ -109,30 +112,38 @@ class CampagneController extends Controller
         $campagne = Campagne::where('badien_gox_id', $badienGox->id)->findOrFail($id);
 
         // Validation
-        $request->validate([
+        $validatedData = $request->validate([
             'nom' => 'sometimes|string|max:255',
             'description' => 'sometimes|string',
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Valider le type de fichier
             'date_debut' => 'sometimes|date',
             'date_fin' => 'sometimes|date|after_or_equal:date_debut',
         ]);
 
-        // Gestion de l'upload de la nouvelle image si présente
+        // Vérifier si une nouvelle image a été uploadée
         if ($request->hasFile('image')) {
-            // Supprimer l'ancienne image si nécessaire
-            Storage::disk('public')->delete($campagne->image);
+            // Supprimer l'ancienne image
+            if ($campagne->image) {
+                Storage::disk('public')->delete($campagne->image);
+            }
 
             // Stocker la nouvelle image
             $imagePath = $request->file('image')->store('campagnes', 'public');
-            $campagne->image = $imagePath;
+
+            $campagne->image = $imagePath; // Stocke le chemin relatif de l'image
+        }
+        // Mettre à jour les autres champs s'ils existent
+        $campagne->fill($validatedData);
+
+        // Vérifier si des modifications ont été faites
+        if ($campagne->isDirty()) {  // Vérifie si le modèle a été modifié
             $campagne->save();
+            return response()->json($campagne, Response::HTTP_OK);
         }
 
-        // Mettre à jour les autres champs
-        $campagne->update($request->only(['nom', 'description', 'date_debut', 'date_fin']));
-        return response()->json($campagne, Response::HTTP_OK);
+        return response()->json([
+            'message' => 'Aucune modification effectuée'
+        ], Response::HTTP_OK);
     }
-
 
     /**
      * Remove the specified resource from storage.

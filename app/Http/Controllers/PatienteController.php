@@ -16,16 +16,24 @@ class PatienteController extends Controller
 {
 
     public function index()
-    {
-        $user = Auth::user(); // Récupère l'utilisateur connecté
+{
+    $user = Auth::user(); // Récupère l'utilisateur connecté
+
+    if ($user->hasRole('sage-femme')) {
         $sageFemmeId = $user->sageFemme->id; // Récupère l'id de la sage-femme associée à l'utilisateur
-
         $patientes = Patiente::where('sage_femme_id', $sageFemmeId)->with('user')->get();
-
-        return response()->json([
-            'Liste_des_patientes' => $patientes,
-        ]);
+    } elseif ($user->hasRole('badiene-gox')) {
+        $badieneId = $user->badienGox->id; // Récupère l'id de la badiene associée à l'utilisateur
+        $patientes = Patiente::where('badien_gox_id', $badieneId)->with('user')->get();
+    } else {
+        // Handle case where user doesn't have either role
+        $patientes = collect(); // Return an empty collection
     }
+
+    return response()->json([
+        'Liste_des_patientes' => $patientes,
+    ]);
+}
 
 
     // Méthode pour créer une patiente

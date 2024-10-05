@@ -17,9 +17,25 @@ class ConsultatonController extends Controller
     public function index()
     {
         $user = Auth::user(); // Récupère l'utilisateur connecté
-        $sageFemmeId = $user->sageFemme->id; // Récupère l'id de la sage-femme associée à l'utilisateur
+        // $sageFemmeId = $user->sageFemme->id; // Récupère l'id de la sage-femme associée à l'utilisateur
 
+        // $consultations = Consultaton::where('sage_femme_id', $sageFemmeId)->get();
+        if ($user->hasRole('sage-femme')) {
+            $sageFemmeId = $user->sageFemme->id; // Récupère l'id de la sage-femme associée à l'utilisateur
         $consultations = Consultaton::where('sage_femme_id', $sageFemmeId)->get();
+        if($consultations->isEmpty()){
+            return response()->json(['message' => 'Aucune consultation trouvé'], 404);
+        }
+    } elseif ($user->hasRole('badien-gox')) {
+            $badieneId = $user->badienGox->id; // Récupère l'id de la badiene associée à l'utilisateur
+        $consultations = Consultaton::where('badien_gox_id', $badieneId)->get();
+        if($consultations->isEmpty()){
+            return response()->json(['message' => 'Aucune consultation trouvé'], 404);
+        }
+    } else {
+            // Handle case where user doesn't have either role
+            $consultations = collect(); // Return an empty collection
+        }
 
         return response()->json($consultations, Response::HTTP_OK);
     }
@@ -54,9 +70,9 @@ class ConsultatonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Consultaton $consultation)
+    public function show($id)
     {
-        $consultation = Consultaton::find($consultation);
+        $consultation = Consultaton::find($id)->load('visite');
 
         if (!$consultation) {
             return response()->json([

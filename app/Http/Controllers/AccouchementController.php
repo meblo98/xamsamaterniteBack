@@ -18,9 +18,14 @@ class AccouchementController extends Controller
     public function index()
     {
         $accouchements = Accouchement::with('patiente.user')->get();
-        return response()->json([
-            'accouchements' => $accouchements,
-        ], 200);
+
+        if ($accouchements->isEmpty()) {
+            return response()->json(['message' => 'Aucun accouchement trouvé'], 404);
+        } else {
+            return response()->json([
+                'accouchements' => $accouchements,
+            ], 200);
+        }
     }
 
     /**
@@ -125,17 +130,17 @@ public function getAccouchementByEnfant($enfant_id)
         }
 
         $validator = Validator::make($request->all(), [
-            'patiente_id' => 'required|exists:patientes,id',
-            'lieu' => 'required|in:maternité,domicile',
-            'mode' => 'required|in:naturel,instrumental,césarienne',
-            'date' => 'required|date',
-            'heure' => 'required|date_format:H:i',
-            'terme' => 'required|string',
-            'mois_grossesse' => 'required|integer|min:1|max:9',
-            'debut_travail' => 'required|date_format:H:i',
-            'perinee' => 'required|in:intact,episiotomie,dechirure',
+            'patiente_id' => 'nullable|exists:patientes,id',
+            'lieu' => 'nullable|in:maternité,domicile',
+            'mode' => 'nullable|in:naturel,instrumental,césarienne',
+            'date' => 'nullable|date',
+            'heure' => 'nullable|date_format:H:i',
+            'terme' => 'nullable|string',
+            'mois_grossesse' => 'nullable|integer|min:1|max:9',
+            'debut_travail' => 'nullable|date_format:H:i',
+            'perinee' => 'nullable|in:intact,episiotomie,dechirure',
             'pathologie' => 'nullable|string',
-            'evolution_reanimation' => 'required|in:favorable,transfert,décès',
+            'evolution_reanimation' => 'nullable|in:favorable,transfert,décès',
         ]);
 
         if ($validator->fails()) {

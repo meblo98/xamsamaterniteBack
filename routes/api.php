@@ -55,6 +55,7 @@ Route::resource('badiene-gox', BadienGoxController::class);
 // gestion des campagnes
 
 Route::resource('campagnes', CampagneController::class);
+Route::post('campagnes/{id}', [CampagneController::class, 'modifier']);
 
 // gestion des conseils
 

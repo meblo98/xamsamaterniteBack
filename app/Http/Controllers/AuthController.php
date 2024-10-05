@@ -90,8 +90,6 @@ class AuthController extends Controller
             // 'telephone' => 'nullable|string|unique:users,telephone,' . auth()->user()->id,
             // 'old_password' => 'nullable|string',
             // 'password' => 'nullable|string|min:8|confirmed',
-            // 'password_confirmation' => 'nullable|string|min:8',
-            // 'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
 
@@ -136,7 +134,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'adresse' => $user->adresse,
                 'telephone' => $user->telephone,
-                'photo' => $user->photo ? asset('storage/app/public' . $user->photo) : null, // Chemin vers la photo
+                'photo' => $user->photo, // Chemin vers la photo
                 'roles' => $user->getRoleNames(), // Rôles de l'utilisateur
             ]
         ], 200);
@@ -145,7 +143,7 @@ class AuthController extends Controller
     {
         $user = auth()->user();
         $role = $user->getRoleNames()[0]; // Get the first role (assuming a user has only one role)
-    
+
         $userData = [
             'id' => $user->id,
             'prenom' => $user->prenom,
@@ -153,9 +151,9 @@ class AuthController extends Controller
             'email' => $user->email,
             'telephone' => $user->telephone,
             'adresse' => $user->adresse,
-            'photo' => $user->photo ? asset('storage/app/public' . $user->photo) : null, // Chemin vers la photo
+            'photo' => $user->photo, // Chemin vers la photo
         ];
-    
+
         switch ($role) {
             case 'sage-femme':
                 $sageFemme = SageFemme::where('user_id', $user->id)->first();
@@ -173,7 +171,7 @@ class AuthController extends Controller
                 $admin = Admin::where('user_id', $user->id)->first();
                 return response()->json(['user' => $userData, 'profil' => $admin]);
                 break;
-    
+
             default:
                 // If the role is not recognized, you can return an error message or a default response
                 return response()->json(['error' => 'Unknown role'], 404);

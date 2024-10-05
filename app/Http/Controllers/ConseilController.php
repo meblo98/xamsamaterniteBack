@@ -22,6 +22,9 @@ class ConseilController extends Controller
         if ($user->role === 'sage-femme') {
             // Si l'utilisateur est une sage-femme, récupérer les conseils qu'elle a créés
             $conseils = Conseil::where('sage_femme_id', $user->sageFemme->id)->get();
+            if($conseils->isEmpty()){
+                return response()->json(['message' => 'Aucun conseil trouvé'], Response::HTTP_OK);
+            }
         } elseif ($user->role === 'patiente') {
             // Si l'utilisateur est une patiente, récupérer les conseils qui lui sont destinés
             $patiente = Patiente::where('user_id', $user->id)->first();
@@ -31,6 +34,9 @@ class ConseilController extends Controller
             }
     
             $conseils = Conseil::where('patiente_id', $patiente->id)->get();
+            if($conseils->isEmpty()){
+                return response()->json(['message' => 'Aucun conseil trouvé'], Response::HTTP_OK);
+            }
         } else {
             return response()->json(['message' => 'Non autorisé'], 403);
         }
