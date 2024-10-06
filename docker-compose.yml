@@ -1,0 +1,35 @@
+version: '3'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  app:
+    build: .
+    ports:
+      - "8181:8181"
+    networks:
+      - app-network
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE= xamsamaternite
+      - DB_USERNAME= root
+      - DB_PASSWORD= root
+
+  db:
+    image: mariadb:10.6
+    networks:
+      - app-network
+    environment:
+      - MYSQL_ROOT_PASSWORD= root
+      - MYSQL_DATABASE= xamsamaternite
+      - MYSQL_USER= root
+      - MYSQL_PASSWORD= root
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
