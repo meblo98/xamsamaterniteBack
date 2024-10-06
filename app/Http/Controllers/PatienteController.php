@@ -27,6 +27,7 @@ class PatienteController extends Controller
         $patientes = Patiente::where('badien_gox_id', $badieneId)->with('user')->get();
     }elseif ($user->hasRole('admin')) {
         $patientes = Patiente::all()->with('user')->get();
+    }
     else {
         // Handle case where user doesn't have either role
         $patientes = collect(); // Return an empty collection
