@@ -25,7 +25,9 @@ class PatienteController extends Controller
     } elseif ($user->hasRole('badiene-gox')) {
         $badieneId = $user->badienGox->id; // Récupère l'id de la badiene associée à l'utilisateur
         $patientes = Patiente::where('badien_gox_id', $badieneId)->with('user')->get();
-    } else {
+    }elseif ($user->hasRole('admin')) {
+        $patientes = Patiente::all()->with('user')->get();
+    else {
         // Handle case where user doesn't have either role
         $patientes = collect(); // Return an empty collection
     }
