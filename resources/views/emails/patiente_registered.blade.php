@@ -10,6 +10,7 @@
     <p>Email : {{ $user->email }}</p>
     <p>Mot de passe : {{ $password }}</p>
     <p>Vous pouvez vous connecter et commencer à utiliser notre application.</p>
+    <p> <a href="https://xamsamaternite.lomouhamedelbachir.simplonfabriques.com/">Lien du site</a></p>
     <p>Cordialement,</p>
     <p>L'équipe de support</p>
 </body>

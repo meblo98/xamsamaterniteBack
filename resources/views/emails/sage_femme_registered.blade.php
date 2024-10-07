@@ -9,6 +9,7 @@
     <p>Email : {{ $user->email }}</p>
     <p>Téléphone : {{ $user->telephone }}</p>
     <p>Mot de passe : {{ $password }}</p>
+    <p> <a href="https://xamsamaternite.lomouhamedelbachir.simplonfabriques.com/">Lien du site</a></p>
     <p>Merci,</p>
     <p>L'équipe de l'application</p>
 </body>

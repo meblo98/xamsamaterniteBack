@@ -8,6 +8,7 @@
     <p>Telephone : {{ $badieneGox->user->telephone }}</p>
     <p>Email : {{ $badieneGox->user->email }}</p>
     <p>Mot de passe : {{ $password }}</p>
-   
+    <p> <a href="https://xamsamaternite.lomouhamedelbachir.simplonfabriques.com/">Lien du site</a></p>
+
 </body>
 </html>
