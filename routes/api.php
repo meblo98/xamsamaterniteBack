@@ -60,6 +60,7 @@ Route::post('campagnes/{id}', [CampagneController::class, 'modifier']);
 // gestion des conseils
 
 Route::resource('conseils', ConseilController::class);
+Route::get('conseils/{id}/patiente', [Conseilcontroller::class,'getConseilsForPatiente']);
 
 // gestion des visites
 Route::resource('visites', VisiteController::class);

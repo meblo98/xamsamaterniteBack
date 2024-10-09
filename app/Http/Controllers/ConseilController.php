@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreConseilRequest;
 use App\Http\Requests\UpdateConseilRequest;
+use App\Models\SageFemme;
 
 class ConseilController extends Controller
 {
@@ -18,21 +19,17 @@ class ConseilController extends Controller
     public function index()
     {
         $user = Auth::user(); // Récupère l'utilisateur connecté
-    
-        if ($user->role === 'sage-femme') {
+        if ($user->hasRole('sage-femme')) {
             // Si l'utilisateur est une sage-femme, récupérer les conseils qu'elle a créés
-            $conseils = Conseil::where('sage_femme_id', $user->sageFemme->id)->get();
+            $sageFemme = SageFemme::where('user_id', $user->id)->first();
+
+            $conseils = Conseil::where('sage_femme_id', $sageFemme->id)->get();
             if($conseils->isEmpty()){
                 return response()->json(['message' => 'Aucun conseil trouvé'], Response::HTTP_OK);
             }
-        } elseif ($user->role === 'patiente') {
+        } elseif ($user->hasRole('patiente')) {
             // Si l'utilisateur est une patiente, récupérer les conseils qui lui sont destinés
             $patiente = Patiente::where('user_id', $user->id)->first();
-    
-            if (!$patiente) {
-                return response()->json(['message' => 'Non autorisé'], 403);
-            }
-    
             $conseils = Conseil::where('patiente_id', $patiente->id)->get();
             if($conseils->isEmpty()){
                 return response()->json(['message' => 'Aucun conseil trouvé'], Response::HTTP_OK);
@@ -40,11 +37,18 @@ class ConseilController extends Controller
         } else {
             return response()->json(['message' => 'Non autorisé'], 403);
         }
-    
-        return response()->json($conseils, Response::HTTP_OK);
-    }
-    
 
+        return response()->json(['mes_conseils'=> $conseils], Response::HTTP_OK);
+    }
+
+    public function getConseilsForPatiente($id)
+    {
+        $conseils = Conseil::where('patiente_id', $id)->get();
+        if($conseils->isEmpty()){
+            return response()->json(['message' => 'Aucun conseil trouvé'], Response::HTTP_OK);
+        }
+        return response()->json(['conseils' => $conseils], Response::HTTP_OK);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -60,15 +64,15 @@ class ConseilController extends Controller
     {
         $user = Auth::user();
         $sageFemme = $user->sageFemme;
-    
+
         if (!$sageFemme) {
             return response()->json(['message' => 'Sage-femme non trouvée pour cet utilisateur'], Response::HTTP_NOT_FOUND);
         }
-    
-       
+
+
         // Gestion de l'upload de l'image
         $imagePath = $request->file('image')->store('conseils', 'public');
-    
+
         // Création du conseil
         $conseil = Conseil::create([
             'description' => $request->description,
@@ -76,10 +80,10 @@ class ConseilController extends Controller
             'sage_femme_id' => $sageFemme->id,
             'patiente_id' => $request->patiente_id,
         ]);
-    
+
         return response()->json($conseil, Response::HTTP_CREATED);
     }
-    
+
     /**
      * Display the specified resource.
      */
@@ -113,30 +117,30 @@ class ConseilController extends Controller
     {
         $user = Auth::user();
         $sageFemme = $user->sageFemme;
-    
+
         if (!$sageFemme) {
             return response()->json(['message' => 'Sage-femme non trouvée pour cet utilisateur'], Response::HTTP_NOT_FOUND);
         }
-    
+
         // Récupérer le conseil
         $conseil = Conseil::where('sage_femme_id', $sageFemme->id)->findOrFail($id);
-    
+
         // Mise à jour de l'image si elle est fournie
         if ($request->hasFile('image')) {
             // Supprimer l'ancienne image
             Storage::disk('public')->delete($conseil->image);
-    
+
             // Stocker la nouvelle image
             $imagePath = $request->file('image')->store('conseils', 'public');
             $conseil->image = $imagePath;
         }
-    
+
         // Mise à jour des autres champs
         $conseil->update($request->except('image'));
-    
+
         return response()->json($conseil, Response::HTTP_OK);
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -145,21 +149,21 @@ class ConseilController extends Controller
     {
         $user = Auth::user();
         $sageFemme = $user->sageFemme;
-    
+
         if (!$sageFemme) {
             return response()->json(['message' => 'Sage-femme non trouvée pour cet utilisateur'], Response::HTTP_NOT_FOUND);
         }
-    
+
         // Récupérer le conseil
         $conseil = Conseil::where('sage_femme_id', $sageFemme->id)->findOrFail($id);
-    
+
         // Supprimer l'image associée
         Storage::disk('public')->delete($conseil->image);
-    
+
         // Supprimer le conseil
         $conseil->delete();
-    
+
         return response()->json(['message' => 'Conseil supprimé'], Response::HTTP_OK);
     }
-    
+
 }

@@ -1,35 +1,62 @@
+# Définition de la version du format de fichier de configuration Docker Compose
 version: '3'
 
+# Définition d'un réseau pour les conteneurs
 networks:
+  # Nom du réseau
   app-network:
+    # Type de réseau (ici, un réseau ponté)
     driver: bridge
 
+# Définition des services (conteneurs)
 services:
+  # Nom du service (conteneur)
   app:
+    # Construction du conteneur à partir du Dockerfile présent dans le répertoire courant
     build: .
+    # Exposition des ports (ici, le port 8181 du conteneur est exposé sur le port 8181 de l'hôte)
     ports:
       - "8181:8181"
+    # Connexion du conteneur au réseau défini précédemment
     networks:
       - app-network
+    # Dépendance du conteneur `app` par rapport au conteneur `db` (le conteneur `app` ne sera lancé qu'une fois que `db` est prêt)
     depends_on:
       - db
+    # Définition des variables d'environnement pour le conteneur `app`
     environment:
+      # Adresse du serveur de base de données
       - DB_HOST=db
+      # Nom de la base de données
       - DB_DATABASE= xamsamaternite
+      # Nom d'utilisateur pour la base de données
       - DB_USERNAME= root
+      # Mot de passe pour la base de données
       - DB_PASSWORD= root
 
+  # Nom du service (conteneur)
   db:
+    # Utilisation de l'image Docker officielle de MariaDB 10.6 pour le conteneur `db`
     image: mariadb:10.6
+    # Connexion du conteneur au réseau défini précédemment
     networks:
       - app-network
+    # Définition des variables d'environnement pour le conteneur `db`
     environment:
+      # Mot de passe root pour la base de données
       - MYSQL_ROOT_PASSWORD= root
+      # Nom de la base de données
       - MYSQL_DATABASE= xamsamaternite
+      # Nom d'utilisateur pour la base de données
       - MYSQL_USER= root
+      # Mot de passe pour la base de données
       - MYSQL_PASSWORD= root
+    # Montage d'un volume pour persister les données de la base de données
     volumes:
+      # Nom du volume et chemin de montage dans le conteneur
       - db-data:/var/lib/mysql
 
+# Définition des volumes
 volumes:
+  # Nom du volume
   db-data:
