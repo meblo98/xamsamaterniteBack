@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreEnfantRequest;
-use App\Http\Requests\UpdateEnfantRequest;
+use DB;
 use App\Models\Enfant;
 use Illuminate\Http\Request;
+use App\Services\EnfantService;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreEnfantRequest;
+use App\Http\Requests\UpdateEnfantRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnfantController extends Controller
@@ -36,8 +40,30 @@ class EnfantController extends Controller
   // Créer un nouvel enfant
   public function store(StoreEnfantRequest $request)
   {
+      $user = Auth::user();
+      // Vérifier si l'utilisateur a le rôle "Sage-femme"
+      if (!$user->hasRole('sage-femme')) {
+          return response()->json([
+              'message' => 'Vous n\'avez pas les autorisations nécessaires pour ajouter un enfant.',
+          ], 403);
+      }
 
-      $enfant = Enfant::create($request->all());
+      try {
+        $enfant = \DB::transaction(function () use ($request) {
+            $enfant = Enfant::create($request->all());
+
+            // Planifier les rendez-vous via le service
+            EnfantService::planifierVaccinations($enfant);
+
+            return $enfant; // Retourner l'instance créée
+        });
+
+      } catch (\Exception $e) {
+          // Log the error or send a response with an error message
+          Log::error($e->getMessage());
+          return response()->json(['message' => 'Erreur lors de la création de l\'enfant'], 500);
+      }
+
       return response()->json($enfant, Response::HTTP_CREATED);
   }
 

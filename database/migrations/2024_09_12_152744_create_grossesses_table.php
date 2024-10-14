@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\BadienGox;
+use App\Models\Patiente;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -12,8 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('patientes', function (Blueprint $table) {
-            $table->foreignIdFor(BadienGox::class)->onDelete('cascade');
+        Schema::create('grossesses', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Patiente::class)->onDelete('cascade');
+            $table->date('date_debut');
+            $table->date('date_prevue_accouchement');
+            $table->timestamps();
         });
     }
 
@@ -22,9 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('patientes', function (Blueprint $table) {
-            $table->dropForeign(['badien_gox_id']);
-            $table->dropColumn('badiene_gox_id');
-        });
+        Schema::dropIfExists('grossesses');
     }
 };

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Enfant;
 use App\Models\Accouchement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreAccouchementRequest;
 use App\Http\Requests\UpdateAccouchementRequest;
@@ -42,8 +43,9 @@ class AccouchementController extends Controller
     // Ajouter un nouvel accouchement
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
-            'patiente_id' => 'required|exists:patientes,id',
+            'grossesse_id' => 'required|exists:grossesses,id',
             'lieu' => 'required|in:maternité,domicile',
             'mode' => 'required|in:naturel,instrumental,césarienne',
             'date' => 'required|date',
@@ -55,12 +57,25 @@ class AccouchementController extends Controller
             'pathologie' => 'nullable|string',
             'evolution_reanimation' => 'required|in:favorable,transfert,décès',
         ]);
-
+        $user = Auth::user();
+        // Vérifier si l'utilisateur a le rôle "Sage-femme"
+        if (!$user->hasRole('sage-femme')) {
+            return response()->json([
+                'message' => 'Vous n\'avez pas les autorisations nécessaires pour ajouter un accouchement.',
+            ], 403);
+        }
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
+        $grossesse_id = $request->input('grossesse_id');
+        if (Accouchement::where('grossesse_id', $grossesse_id)->exists()) {
+            return response()->json(['message' => 'Un accouchement existe déjà pour cette grossesse.'], 400);
+        }
+        $data = $validator->validated();
+        $data['sage_femme_id'] = $user->sageFemme->id; // Add sage_femme_id to the validated data
 
-        $accouchement = Accouchement::create($request->all());
+
+        $accouchement = Accouchement::create($data);
 
         return response()->json($accouchement, 201);
     }
@@ -101,11 +116,11 @@ public function getAccouchementByEnfant($enfant_id)
     public function show($id)
     {
         $accouchement = Accouchement::with('patiente.user')->find($id);
-    
+
         if (!$accouchement) {
             return response()->json(['message' => 'Accouchement non trouvé'], 404);
         }
-    
+
         return response()->json($accouchement, 200);
     }
 

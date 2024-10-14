@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEnfantRequest extends FormRequest
+class UpdateGrossesseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,12 +22,7 @@ class StoreEnfantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'sometimes|string',
-            'prenom' => 'sometimes|string',
-            'lieu_naissance' => 'required|string',
-            'date_naissance' => 'required|date',
-            'sexe' => 'required|string',
-            'accouchement_id' => 'required|exists:accouchements,id'
+            //
         ];
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Patiente;
+use App\Models\RendezVous;
 use App\Models\SageFemme;
 use App\Models\Visite;
 use Illuminate\Support\Facades\Schema;
@@ -82,8 +83,7 @@ return new class extends Migration
             $table->text('traitement')->nullable();  // Traitement proposé
 
             $table->foreignIdFor(SageFemme::class)->onDelete('cascade');
-            $table->foreignIdFor(Patiente::class)->onDelete('cascade');
-            $table->foreignIdFor(Visite::class)->onDelete('cascade');
+            $table->foreignIdFor(RendezVous::class)->onDelete('cascade');
 
             $table->timestamps();
         });

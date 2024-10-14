@@ -55,8 +55,8 @@ class StoreConsultatonRequest extends FormRequest
             'autre_examen' => 'nullable|string',
             'resultat' => 'nullable|string',
             'lieu_accouchement_apre_consentement' => 'nullable|string',
-            'patiente_id' => 'required|exists:patientes,id',
-            'visite_id' => 'required|exists:visites,id',
+            'sage_femme_id' => 'required|exists:sage_femmes,id',
+            'rendez_vous_id' => 'required|exists:rendez_vouses,id',
         ];
     }
 }
