@@ -14,8 +14,10 @@ return new class extends Migration
     {
         Schema::create('vaccinations', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->date('date_vaccination')->nullable();
             $table->string('nom');
-            $table->string('observation');
+            $table->string('observation')->nullable();
             $table->string('dose');
             $table->foreignIdFor(Enfant::class)->onDelete('cascade');
             $table->timestamps();

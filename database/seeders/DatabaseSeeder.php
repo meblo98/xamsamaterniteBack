@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             RegionMedicaleSeeder::class,
             DistrictSanitaireSeeder::class,
             StructureSanteSeeder::class,
-            VisiteSeeder::class,
+            // VisiteSeeder::class,
         ]);
     }
 }

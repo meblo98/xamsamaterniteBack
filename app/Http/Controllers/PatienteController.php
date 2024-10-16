@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\User;
 use Twilio\Rest\Client;
 use App\Models\Patiente;
@@ -39,50 +40,60 @@ class PatienteController extends Controller
 }
 
 
-    // Méthode pour créer une patiente
-    public function store(StorePatienteRequest $request)
-    {
-        // Générer un mot de passe aléatoire
-        $password = $this->generateRandomPassword();
-        $user = Auth::user();
-        $sageFemmeId = $user->sageFemme->id;
+// Méthode pour créer une patiente
+public function store(StorePatienteRequest $request)
+{
+    // Générer un mot de passe aléatoire
+    $password = $this->generateRandomPassword();
+    $user = Auth::user();
+    $sageFemmeId = $user->sageFemme->id;
+    try {
+        $patiente = \DB::transaction(function () use ($request, $password, $sageFemmeId) {
+            // Création de l'utilisateur
+            $user = User::create([
+                'prenom' => $request->prenom,
+                'nom' => $request->nom,
+                'adresse' => $request->adresse,
+                'email' => $request->email,
+                'telephone' => $request->telephone,
+                'password' => Hash::make($password),
+            ]);
 
-        $user = User::create([
-            'prenom' => $request->prenom,
-            'nom' => $request->nom,
-            'adresse' => $request->adresse,
-            'email' => $request->email,
-            'telephone' => $request->telephone,
-            'password' => Hash::make($password),
-        ]);
+            // Assigner le rôle patiente via Spatie
+            $user->assignRole('patiente');
 
-        // Assigner le rôle admin via Spatie
-        $user->assignRole('patiente');
+            // Création de la patiente
+            $patiente = Patiente::create([
+                'user_id' => $user->id,
+                'lieu_de_naissance' => $request->lieu_de_naissance,
+                'date_de_naissance' => $request->date_de_naissance,
+                'profession' => $request->profession,
+                'sage_femme_id' => $sageFemmeId,
+                'badien_gox_id' => $request->badien_gox_id,
+            ]);
 
-        // Création de la patiente
-        $patiente = Patiente::create([
-            'user_id' => $user->id,
-            'lieu_de_naissance' => $request->lieu_de_naissance,
-            'date_de_naissance' => $request->date_de_naissance,
-            'profession' => $request->profession,
-            'type' => $request->type,
-            'sage_femme_id' => $sageFemmeId,
-            'badien_gox_id' => $request->badien_gox_id,
-        ]);
+            // Envoi de l'email
+            if ($user->email) {
+                Mail::to($user->email)->send(new PatienteRegistered($user, $password));
+            }
+            // Envoyer le SMS avec le mot de passe
+            // $this->sendSms($user->telephone, $password);
 
-        // Envoi de l'email
-        Mail::to($user->email)->send(new PatienteRegistered($user, $password));
-
-        // Envoyer le SMS avec le mot de passe
-        // $this->sendSms($user->telephone, $password);
+            return $patiente;
+        });
 
         return response()->json([
             'message' => 'Patiente créée avec succès',
             'patiente' => $patiente,
             'mot de passe' => $password,
         ], 201);
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => 'Erreur lors de la création de la patiente',
+            'error' => $e->getMessage(),
+        ], 500);
     }
-
+}
 
     // Fonction pour générer un mot de passe aléatoire
     private function generateRandomPassword($length = 8)
@@ -112,9 +123,8 @@ class PatienteController extends Controller
     public function show($id)
     {
         $patiente = Patiente::with('user')
-            ->with('rendezvous')
-            ->with('consultations')
-            ->with('accouchements')
+            ->with('grossesses')
+            
             ->findOrFail($id);
 
         return response()->json([

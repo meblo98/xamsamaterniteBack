@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\Patiente;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Grossesse;
+use App\Models\SageFemme;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -15,7 +17,8 @@ return new class extends Migration
         Schema::create('accouchements', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignIdFor(Patiente::class)->onDelete('cascade');
+            $table->foreignIdFor(Grossesse::class)->onDelete('cascade');
+            $table->foreignIdFor(SageFemme::class)->onDelete('cascade');
 
             // Lieu de l'accouchement (maternité, domicile)
             $table->enum('lieu', ['maternité', 'domicile']);

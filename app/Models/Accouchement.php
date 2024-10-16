@@ -10,12 +10,13 @@ class Accouchement extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function patiente()
-    {
-        return $this->belongsTo(Patiente::class);
-    }
+ 
     public function enfants()
     {
         return $this->hasMany(Enfant::class);
+    }
+    public function grossesse()
+    {
+        return $this->belongsTo(Grossesse::class);
     }
 }

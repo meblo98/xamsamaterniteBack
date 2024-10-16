@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('sage_femmes', function (Blueprint $table) {
             $table->id();
+            $table->boolean('archived')->default(false);
             $table->foreignIdFor(User::class)->onDelete('cascade');
             $table->foreignIdFor(StructureSante::class)->onDelete('cascade');
             $table->string('matricule');

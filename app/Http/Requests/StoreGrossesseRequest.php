@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreConseilRequest extends FormRequest
+class StoreGrossesseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +24,9 @@ class StoreConseilRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'grossesse_id' => 'required|exists:grossesses,id',
+           'patiente_id' => ['required','exists:patientes,id'],
+            'date_debut' => ['required','date'],
+            'date_prevue_accouchement' => ['nullable','date','after:date_debut'],
         ];
     }
 }

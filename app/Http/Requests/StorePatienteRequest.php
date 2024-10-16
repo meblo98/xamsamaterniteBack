@@ -16,14 +16,13 @@ class StorePatienteRequest extends FormRequest
             // 'prenom' => 'required|string|max:255',
             // 'nom' => 'required|string|max:255',
             // 'adresse' => 'required|string|max:255',
-            // 'email' => 'required|string|email|max:255|unique:users',
+            // 'email' => 'nullable|string|email|max:255|unique:users',
             // 'telephone' => 'required|numeric|unique:users',
             // 'password' => 'required|string|min:8',
             // 'lieu_de_naissance' => 'required|string',
             // 'date_de_naissance' => 'required|string',
             // 'profession' => 'required|string',
             // 'type' => 'required|in:Enceinte,En planning,Allaitente',
-            // 'sage_femme_id' => 'required|exists:sage_femmes,id',
         ];
     }
 }

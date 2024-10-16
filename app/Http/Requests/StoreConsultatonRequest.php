@@ -14,18 +14,18 @@ class StoreConsultatonRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'nullable|date',
-            'terme' => 'nullable|string',
+            'date' => 'required|date',
+            'terme' => 'required|string',
             'SA' => 'nullable|string',
             'plaintes' => 'nullable|string',
             'mois' => 'nullable|integer',
             'poids' => 'nullable|numeric',
             'taille' => 'nullable|numeric',
             'PB' => 'nullable|numeric',
-            'temperature' => 'nullable|numeric',
+            'temperature' => 'required|numeric',
             'urine' => 'nullable|string',
             'sucre' => 'nullable|string',
-            'TA' => 'nullable|string',
+            // 'TA' => 'required|string',
             'pouls' => 'nullable|integer',
             'EG' => 'nullable|string',
             'muqueuse' => 'nullable|string',
@@ -55,8 +55,7 @@ class StoreConsultatonRequest extends FormRequest
             'autre_examen' => 'nullable|string',
             'resultat' => 'nullable|string',
             'lieu_accouchement_apre_consentement' => 'nullable|string',
-            'patiente_id' => 'required|exists:patientes,id',
-            'visite_id' => 'required|exists:visites,id',
+            'rendez_vous_id' => 'required|exists:rendez_vouses,id',
         ];
     }
 }

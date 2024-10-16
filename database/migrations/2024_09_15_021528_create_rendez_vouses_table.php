@@ -1,9 +1,6 @@
 <?php
 
-use App\Models\Patiente;
-use App\Models\SageFemme;
-use App\Models\Vaccination;
-use App\Models\Visite;
+use App\Models\Grossesse;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -17,10 +14,9 @@ return new class extends Migration
     {
         Schema::create('rendez_vouses', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Patiente::class)->onDelete('cascade');
-            $table->foreignIdFor(SageFemme::class)->onDelete('cascade');
-            $table->foreignIdFor(Visite::class)->nullable()->onDelete('cascade');
-            $table->foreignIdFor(Vaccination::class)->nullable()->onDelete('cascade');
+            $table->string('libelle');
+            $table->boolean('statut')->default(false);
+            $table->foreignIdFor(Grossesse::class)->onDelete('cascade');
             $table->date('date_rv');
             $table->timestamps();
         });

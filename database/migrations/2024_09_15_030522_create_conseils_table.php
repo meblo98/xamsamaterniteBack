@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Grossesse;
 use App\Models\Patiente;
 use App\Models\SageFemme;
 use Illuminate\Database\Migrations\Migration;
@@ -18,8 +19,7 @@ return new class extends Migration
             $table->string('image');
             $table->text('description');
             $table->foreignIdFor(SageFemme::class)->onDelete('cascade');
-            $table->foreignIdFor(Patiente::class)->onDelete('cascade');
-
+            $table->foreignIdFor(Grossesse::class)->onDelete('cascade');
             $table->timestamps();
         });
     }

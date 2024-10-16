@@ -9,6 +9,7 @@ use App\Http\Controllers\ConseilController;
 use App\Http\Controllers\CampagneController;
 use App\Http\Controllers\PatienteController;
 use App\Http\Controllers\BadienGoxController;
+use App\Http\Controllers\GrossesseController;
 use App\Http\Controllers\SageFemmeController;
 use App\Http\Controllers\RendezVousController;
 use App\Http\Controllers\ConsultatonController;
@@ -37,6 +38,8 @@ Route::put('/sage-femmes/{id}/archive', [SageFemmeController::class, 'archive'])
 // gestion des patientes
 
 Route::resource('patientes', PatienteController::class);
+
+Route::resource('grossesses', GrossesseController::class);
 
 // gestion des consultations
 

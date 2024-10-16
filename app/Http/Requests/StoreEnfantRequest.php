@@ -22,12 +22,12 @@ class StoreEnfantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'nom' => 'sometimes|string',
-            // 'prenom' => 'sometimes|string',
-            // 'lieu_naissance' => 'required|string',
-            // 'date_naissance' => 'required|date',
-            // 'sexe' => 'required|string',
-            // 'accouchement_id' => 'required|exists:accouchements,id'
+            'nom' => 'sometimes|string',
+            'prenom' => 'sometimes|string',
+            'lieu_naissance' => 'required|string',
+            'date_naissance' => 'required|date',
+            'sexe' => 'required|string',
+            'accouchement_id' => 'required|exists:accouchements,id'
         ];
     }
 }

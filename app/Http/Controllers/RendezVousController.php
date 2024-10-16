@@ -17,17 +17,17 @@ class RendezVousController extends Controller
     public function index()
     {
         $user = Auth::user();
-
         if ($user->hasRole('patiente')) {
-            $rendez_vouses = RendezVous::where('patiente_id', $user->id)
-                ->with(['patiente', 'sageFemme', 'visite', 'vaccination'])
+            $rendez_vouses = RendezVous::where('grossesse_id', $user->grossesses->id)
+                ->with(['consultation', 'sageFemme'])
                 ->get();
             if($rendez_vouses->isEmpty()){
                 return response()->json(['message' => 'Aucune patiente trouvé']);
             }
         } elseif ($user->hasRole('sage-femme')) {
-            $rendez_vouses = RendezVous::where('sage_femme_id', $user->id)
-                ->with(['patiente', 'sageFemme', 'visite', 'vaccination'])
+
+            $rendez_vouses = RendezVous::where('grossesse_id', $user->sageFemme->grossesses->id)
+                ->with(['consultation', 'sageFemme'])
                 ->get();
                 if($rendez_vouses->isEmpty()){
                     return response()->json(['message'=> 'Aucune patiente trouvé']);
@@ -44,7 +44,7 @@ class RendezVousController extends Controller
     public function getRendezvousByPatiente($id)
     {
         $patiente = Patiente::find($id);
-        $rendezvous = $patiente->rendezvous->load('visite');
+        $rendezvous = $patiente->rendezvous->load('consultation');
         return response()->json([
             'mes_rv' => $rendezvous
         ], 200);
@@ -86,7 +86,7 @@ class RendezVousController extends Controller
     public function show(RendezVous $rv)
     {
         // Charger les relations patiente, sageFemme, visite et vaccination
-        $rendezVous = $rv->load(['patiente', 'sageFemme', 'visite', 'vaccination']);
+        $rendezVous = $rv->load(['consultation']);
 
         return response()->json($rendezVous, Response::HTTP_OK);
     }

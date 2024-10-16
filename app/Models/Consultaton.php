@@ -9,12 +9,13 @@ class Consultaton extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function patiente()
+    
+    public function sageFemme()
     {
-        return $this->belongsTo(Patiente::class);
+        return $this->belongsTo(SageFemme::class);
     }
-    public function visite()
+    public function rendezVous()
     {
-        return $this->belongsTo(Visite::class);
+        return $this->belongsTo(RendezVous::class);
     }
 }
