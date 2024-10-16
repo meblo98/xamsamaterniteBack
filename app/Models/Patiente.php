@@ -25,24 +25,12 @@ class Patiente extends Model
     {
         return $this->belongsTo(SageFemme::class);
     }
-    public function rendezvous()
+    public function grossesses()
     {
-        return $this->hasOne(RendezVous::class);
+        return $this->hasMany(Grossesse::class);
     }
-
-    public function consultations()
-    {
-        return $this->hasOne(Consultaton::class);
-    }
-
-    public function accouchements()
-    {
-        return $this->hasOne(Accouchement::class);
-    }
-
     public function badiene()
     {
         return $this->belongsTo(BadienGox::class, 'badien_gox_id');
     }
-
 }

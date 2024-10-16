@@ -74,7 +74,7 @@ class ConseilController extends Controller
             'description' => $request->description,
             'image' => $imagePath,
             'sage_femme_id' => $sageFemme->id,
-            'patiente_id' => $request->patiente_id,
+            'grossesse_id' => $request->grossesse_id,
         ]);
     
         return response()->json($conseil, Response::HTTP_CREATED);

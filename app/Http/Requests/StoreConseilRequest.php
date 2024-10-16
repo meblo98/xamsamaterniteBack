@@ -24,7 +24,7 @@ class StoreConseilRequest extends FormRequest
         return [
             'description' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'patiente_id' => 'required|exists:patientes,id',
+            'grossesse_id' => 'required|exists:grossesses,id',
         ];
     }
 }

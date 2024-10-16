@@ -14,6 +14,10 @@ class SageFemme extends Model
 {
     return $this->belongsTo(User::class);
 }
+public function grossesses()
+{
+    return $this->hasMany(Grossesse::class);
+}
 public function structureSante()
 {
     return $this->belongsTo(StructureSante::class);

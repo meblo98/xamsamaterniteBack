@@ -24,9 +24,9 @@ class StoreGrossesseRequest extends FormRequest
     public function rules(): array
     {
         return [
-        //    'patiente_id' => ['required','exists:patientes,id'],
-        //     'date_debut' => ['required','date'],
-        //     'date_prevue_accouchement' => ['nullable','date','after:date_debut'],
+           'patiente_id' => ['required','exists:patientes,id'],
+            'date_debut' => ['required','date'],
+            'date_prevue_accouchement' => ['nullable','date','after:date_debut'],
         ];
     }
 }

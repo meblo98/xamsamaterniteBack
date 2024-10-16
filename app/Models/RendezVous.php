@@ -12,23 +12,21 @@ class RendezVous extends Model
     protected $table = 'rendez_vouses';
     protected $guarded = [];
 
-    public function patiente()
-    {
-        return $this->belongsTo(Patiente::class);
-    }
 
     public function sageFemme()
     {
         return $this->belongsTo(SageFemme::class);
     }
 
-    public function visite()
+
+    public function grossesse()
     {
-        return $this->belongsTo(Visite::class);
+        return $this->belongsTo(Grossesse::class);
     }
 
-    public function vaccination()
+    public function consultation()
     {
-        return $this->belongsTo(Vaccination::class);
+        return $this->hasOne(Consultaton::class);
     }
 }
+

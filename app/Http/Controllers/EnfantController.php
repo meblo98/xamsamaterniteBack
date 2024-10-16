@@ -20,7 +20,7 @@ class EnfantController extends Controller
     // Lister tous les enfants
     public function index()
     {
-        $enfants = Enfant::with('accouchement')->get();
+        $enfants = Enfant::with('accouchement.grossesse.patiente.user')->get();
         return response()->json([
             'Liste_des_enfants' => $enfants
         ], Response::HTTP_OK);
@@ -73,7 +73,7 @@ class EnfantController extends Controller
       // Afficher un enfant spécifique
       public function show($id)
       {
-          $enfant = Enfant::with('accouchement.patiente.user')->findOrFail($id);
+          $enfant = Enfant::with('accouchement.grossesse.patiente.user')->findOrFail($id);
           return response()->json($enfant, Response::HTTP_OK);
       }
 

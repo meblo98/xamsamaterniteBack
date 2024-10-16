@@ -47,7 +47,6 @@ public function store(StorePatienteRequest $request)
     $password = $this->generateRandomPassword();
     $user = Auth::user();
     $sageFemmeId = $user->sageFemme->id;
-
     try {
         $patiente = \DB::transaction(function () use ($request, $password, $sageFemmeId) {
             // Création de l'utilisateur
@@ -74,8 +73,9 @@ public function store(StorePatienteRequest $request)
             ]);
 
             // Envoi de l'email
-            Mail::to($user->email)->send(new PatienteRegistered($user, $password));
-
+            if ($user->email) {
+                Mail::to($user->email)->send(new PatienteRegistered($user, $password));
+            }
             // Envoyer le SMS avec le mot de passe
             // $this->sendSms($user->telephone, $password);
 
@@ -88,7 +88,10 @@ public function store(StorePatienteRequest $request)
             'mot de passe' => $password,
         ], 201);
     } catch (\Exception $e) {
-        return response()->json(['message' => 'Erreur lors de la création de la patiente', $e], 500);
+        return response()->json([
+            'message' => 'Erreur lors de la création de la patiente',
+            'error' => $e->getMessage(),
+        ], 500);
     }
 }
 
@@ -120,9 +123,8 @@ public function store(StorePatienteRequest $request)
     public function show($id)
     {
         $patiente = Patiente::with('user')
-            ->with('rendezvous')
-            ->with('consultations')
-            ->with('accouchements')
+            ->with('grossesses')
+            
             ->findOrFail($id);
 
         return response()->json([

@@ -53,14 +53,16 @@ class ConsultatonController extends Controller
      */
     public function store(StoreConsultatonRequest $request)
     {
-        $user = Auth::user(); // Récupère l'utilisateur connecté
-        $sageFemmeId = $user->sageFemme->id; // Récupère l'id de la sage-femme associée à l'utilisateur
-
-        $validatedData = $request->validated();
-        $validatedData['sage_femme_id'] = $sageFemmeId;
-
-        $consultation = Consultaton::create($validatedData);
-
+        $user = Auth::user(); // Récupère l'utilisateur authentifié
+        // Vérifie si l'utilisateur est associé à une sage-femme
+        if (!$user->sageFemme) {
+            return response()->json([
+                'message' => 'L\'utilisateur n\'est pas associé à une sage-femme',
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+    
+        $request->merge(['sage_femme_id' => $user->sageFemme->id]);
+        $consultation = Consultaton::create($request->all());
         return response()->json([
             'message' => 'Consultation créée avec succès',
             'data' => $consultation

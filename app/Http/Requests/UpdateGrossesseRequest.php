@@ -11,7 +11,7 @@ class UpdateGrossesseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateGrossesseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            // 'patiente_id' => ['nullable','exists:patientes,id'],
+            // 'date_debut' => ['nullable','date'],
+            // 'date_prevue_accouchement' => ['nullable','date','after:date_debut'],
         ];
     }
 }

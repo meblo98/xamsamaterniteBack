@@ -16,6 +16,11 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Patiente::class)->onDelete('cascade');
             $table->date('date_debut');
+            $table->enum('statut', [
+                'en_cours',
+                'termine',
+                'avorte',
+            ])->default('en_cours');
             $table->date('date_prevue_accouchement');
             $table->timestamps();
         });

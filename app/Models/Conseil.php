@@ -15,7 +15,7 @@ class Conseil extends Model
         return $this->belongsTo(SageFemme::class);
     }
 
-    public function patiente()
+    public function grossesse()
     {
         return $this->belongsTo(Patiente::class);
     }
