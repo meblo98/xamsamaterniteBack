@@ -18,7 +18,7 @@ class AccouchementController extends Controller
     // Liste des accouchements
     public function index()
     {
-        $accouchements = Accouchement::with('patiente.user')->get();
+        $accouchements = Accouchement::with('grossesse.patiente.user')->get();
 
         if ($accouchements->isEmpty()) {
             return response()->json(['message' => 'Aucun accouchement trouvé'], 404);
