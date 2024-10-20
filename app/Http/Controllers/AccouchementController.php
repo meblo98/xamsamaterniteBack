@@ -139,13 +139,11 @@ public function getAccouchementByEnfant($enfant_id)
     public function update(Request $request, $id)
     {
         $accouchement = Accouchement::find($id);
-
         if (!$accouchement) {
             return response()->json(['message' => 'Accouchement non trouvé'], 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'patiente_id' => 'nullable|exists:patientes,id',
             'lieu' => 'nullable|in:maternité,domicile',
             'mode' => 'nullable|in:naturel,instrumental,césarienne',
             'date' => 'nullable|date',
@@ -162,7 +160,7 @@ public function getAccouchementByEnfant($enfant_id)
             return response()->json($validator->errors(), 400);
         }
 
-        $accouchement->update($request->all());
+        $accouchement->update($validator->validated());
 
         return response()->json($accouchement, 200);
     }

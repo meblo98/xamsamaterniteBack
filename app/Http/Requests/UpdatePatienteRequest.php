@@ -13,7 +13,7 @@ class UpdatePatienteRequest extends FormRequest
 
     public function rules()
     {
-        
+
         return [
             // 'prenom' => 'nullable|string|max:255',
             // 'nom' => 'nullable|string|max:255',
@@ -23,7 +23,6 @@ class UpdatePatienteRequest extends FormRequest
             // 'lieu_de_naissance' => 'nullable|string',
             // 'date_de_naissance' => 'nullable|string',
             // 'profession' => 'nullable|string',
-            // 'type' => 'nullable|in:Enceinte,En planning,Allaitente',
         ];
     }
 }

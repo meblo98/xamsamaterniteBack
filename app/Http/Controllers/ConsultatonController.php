@@ -8,6 +8,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreConsultatonRequest;
 use App\Http\Requests\UpdateConsultatonRequest;
+use App\Models\Grossesse;
+use App\Models\RendezVous;
 
 class ConsultatonController extends Controller
 {
@@ -22,17 +24,20 @@ class ConsultatonController extends Controller
         // $consultations = Consultaton::where('sage_femme_id', $sageFemmeId)->get();
         if ($user->hasRole('sage-femme')) {
             $sageFemmeId = $user->sageFemme->id; // Récupère l'id de la sage-femme associée à l'utilisateur
-        $consultations = Consultaton::where('sage_femme_id', $sageFemmeId)->get();
-        if($consultations->isEmpty()){
-            return response()->json(['message' => 'Aucune consultation trouvé'], 404);
-        }
-    } elseif ($user->hasRole('badien-gox')) {
+            $consultations = Consultaton::where('sage_femme_id', $sageFemmeId)->get();
+            if ($consultations->isEmpty()) {
+                return response()->json(['message' => 'Aucune consultation trouvé'], 404);
+            }
+        } elseif ($user->hasRole('badien-gox')) {
             $badieneId = $user->badienGox->id; // Récupère l'id de la badiene associée à l'utilisateur
-        $consultations = Consultaton::where('badien_gox_id', $badieneId)->get();
-        if($consultations->isEmpty()){
-            return response()->json(['message' => 'Aucune consultation trouvé'], 404);
-        }
-    } else {
+            $patiente = Patiente::where('badien_gox_id', $badieneId)->get();
+            $grossesse = Grossesse::where('patiente_id', $patiente->id)->get();
+            $rendezVous = RendezVous::where('badien_gox_id', $grossesse->id)->get();
+            $consultations = Consultaton::where('badien_gox_id', $rendezVous->id)->get();
+            if ($consultations->isEmpty()) {
+                return response()->json(['message' => 'Aucune consultation trouvé'], 404);
+            }
+        } else {
             // Handle case where user doesn't have either role
             $consultations = collect(); // Return an empty collection
         }
@@ -60,7 +65,7 @@ class ConsultatonController extends Controller
                 'message' => 'L\'utilisateur n\'est pas associé à une sage-femme',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-    
+
         $request->merge(['sage_femme_id' => $user->sageFemme->id]);
         $consultation = Consultaton::create($request->all());
         return response()->json([
