@@ -43,6 +43,7 @@ class PatienteController extends Controller
 // Méthode pour créer une patiente
 public function store(StorePatienteRequest $request)
 {
+
     // Générer un mot de passe aléatoire
     $password = $this->generateRandomPassword();
     $user = Auth::user();
@@ -124,7 +125,7 @@ public function store(StorePatienteRequest $request)
     {
         $patiente = Patiente::with('user')
             ->with('grossesses')
-            
+
             ->findOrFail($id);
 
         return response()->json([
@@ -151,7 +152,6 @@ public function store(StorePatienteRequest $request)
             'date_de_naissance' => $request->date_de_naissance,
             'badien_gox_id' => $request->badien_gox_id,
             'profession' => $request->profession,
-            'type' => $request->type,
         ]);
 
         return response()->json([

@@ -24,7 +24,7 @@ class UpdateConseilRequest extends FormRequest
         return [
             'description' => 'sometimes|string',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'patiente_id' => 'sometimes|exists:patientes,id',
+            'grossesse_id' => 'sometimes|exists:grossesses,id',
         ];
     }
 }
