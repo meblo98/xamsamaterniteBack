@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Accouchement;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreEnfantRequest extends FormRequest
@@ -21,13 +22,15 @@ class StoreEnfantRequest extends FormRequest
      */
     public function rules(): array
     {
+        
         return [
             'nom' => 'sometimes|string',
             'prenom' => 'sometimes|string',
             'lieu_naissance' => 'required|string',
-            'date_naissance' => 'required|date',
+            // 'date_naissance' => 'required|date',
             'sexe' => 'required|string',
             'accouchement_id' => 'required|exists:accouchements,id'
         ];
     }
+
 }
