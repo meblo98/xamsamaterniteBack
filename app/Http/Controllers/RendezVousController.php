@@ -18,12 +18,25 @@ class RendezVousController extends Controller
     {
         $user = Auth::user();
         if ($user->hasRole('patiente')) {
-            $rendez_vouses = RendezVous::where('grossesse_id', $user->grossesses->id)
+            // Vérifiez si l'utilisateur a des grossesses
+            if ($user->patiente->grossesses->isEmpty()) {
+                return response()->json(['message' => 'Aucune grossesse trouvée pour cette patiente']);
+            }
+            
+            // Récupérez tous les IDs des grossesses
+            $grossesseIds = $user->patiente->grossesses->pluck('id');
+            // Récupérez tous les rendez-vous associés à ces grossesses
+            $rendez_vouses = RendezVous::whereIn('grossesse_id', $grossesseIds)
                 ->with(['consultation', 'sageFemme'])
                 ->get();
-            if($rendez_vouses->isEmpty()){
-                return response()->json(['message' => 'Aucune patiente trouvé']);
+            
+            // Vérifiez si des rendez-vous ont été trouvés
+            if ($rendez_vouses->isEmpty()) {
+                return response()->json(['message' => 'Aucun rendez-vous trouvé pour cette patiente']);
             }
+        
+            // Retournez la liste des rendez-vous
+            return response()->json($rendez_vouses);
         } elseif ($user->hasRole('sage-femme')) {
 
             $rendez_vouses = RendezVous::where('grossesse_id', $user->sageFemme->grossesses->id)
@@ -41,14 +54,31 @@ class RendezVousController extends Controller
     }
 }
 
-    public function getRendezvousByPatiente($id)
-    {
-        $patiente = Patiente::find($id);
-        $rendezvous = $patiente->rendezvous->load('consultation');
-        return response()->json([
-            'mes_rv' => $rendezvous
-        ], 200);
+public function getRendezvousByPatiente($id)
+{
+    // Trouver la patiente par son ID
+    $patiente = Patiente::with('grossesses.rendezvous.consultation')->find($id);
+    
+    // Vérifiez si la patiente existe
+    if (!$patiente) {
+        return response()->json(['message' => 'Patiente non trouvée'], 404);
     }
+
+    // Récupérer tous les rendez-vous associés à toutes les grossesses de la patiente
+    $rendezvous = $patiente->grossesses->flatMap(function ($grossesse) {
+        return $grossesse->rendezvous; // Récupère les rendez-vous pour chaque grossesse
+    });
+
+    // Vérifiez si des rendez-vous ont été trouvés
+    if ($rendezvous->isEmpty()) {
+        return response()->json(['message' => 'Aucun rendez-vous trouvé pour cette patiente'], 404);
+    }
+
+    // Retourner la liste des rendez-vous
+    return response()->json([
+        'mes_rv' => $rendezvous
+    ], 200);
+}
 
     /**
      * Show the form for creating a new resource.
