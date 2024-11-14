@@ -38,7 +38,7 @@ Route::put('/sage-femmes/{id}/archive', [SageFemmeController::class, 'archive'])
 // gestion des patientes
 
 Route::resource('patientes', PatienteController::class);
-
+Route::get('patientes-badiene/{badieneGoxId}', [PatienteController::class, 'getPatientesByBadieneGox']);
 Route::resource('grossesses', GrossesseController::class);
 
 // gestion des consultations

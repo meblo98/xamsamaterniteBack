@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 # Définition de la version du format de fichier de configuration Docker Compose
 version: '3'
 
 # Définition d'un réseau pour les conteneurs
+=======
+>>>>>>> develop
 networks:
   # Nom du réseau
   app-network:
@@ -27,22 +30,33 @@ services:
     environment:
       # Adresse du serveur de base de données
       - DB_HOST=db
+<<<<<<< HEAD
       # Nom de la base de données
       - DB_DATABASE= xamsamaternite
       # Nom d'utilisateur pour la base de données
       - DB_USERNAME= root
       # Mot de passe pour la base de données
       - DB_PASSWORD= root
+=======
+      - DB_DATABASE=xamsamaternite
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+>>>>>>> develop
 
   # Nom du service (conteneur)
   db:
+<<<<<<< HEAD
     # Utilisation de l'image Docker officielle de MariaDB 10.6 pour le conteneur `db`
     image: mariadb:10.6
     # Connexion du conteneur au réseau défini précédemment
+=======
+    image: mysql
+>>>>>>> develop
     networks:
       - app-network
     # Définition des variables d'environnement pour le conteneur `db`
     environment:
+<<<<<<< HEAD
       # Mot de passe root pour la base de données
       - MYSQL_ROOT_PASSWORD= root
       # Nom de la base de données
@@ -52,11 +66,21 @@ services:
       # Mot de passe pour la base de données
       - MYSQL_PASSWORD= root
     # Montage d'un volume pour persister les données de la base de données
+=======
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=xamsamaternite
+>>>>>>> develop
     volumes:
       # Nom du volume et chemin de montage dans le conteneur
       - db-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
 
 # Définition des volumes
 volumes:
+<<<<<<< HEAD
   # Nom du volume
   db-data:
+=======
+  db-data:
+>>>>>>> develop

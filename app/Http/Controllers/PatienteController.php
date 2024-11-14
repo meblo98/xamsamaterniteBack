@@ -30,7 +30,6 @@ class PatienteController extends Controller
         $patientes = Patiente::all()->with('user')->get();
     }
     else {
-        // Handle case where user doesn't have either role
         $patientes = collect(); // Return an empty collection
     }
 
@@ -184,5 +183,21 @@ public function store(StorePatienteRequest $request)
             'message' => 'Patiente archivée avec succès',
         ]);
     }
+    public function getPatientesByBadieneGox($badieneGoxId)
+{
+    // Vérifiez si l'utilisateur a le rôle de 'badiene-gox'
+    $user = Auth::user();
+    if (!$user) {
+        return response()->json([
+            'message' => 'Accès non autorisé',
+        ], 403);
+    }
 
+    // Récupérer les patientes associées à la badiene gox par ID
+    $patientes = Patiente::where('badien_gox_id', $badieneGoxId)->with('user')->get();
+
+    return response()->json([
+        'Liste_des_patientes' => $patientes,
+    ]);
+}
 }
