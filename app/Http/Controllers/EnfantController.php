@@ -9,6 +9,11 @@ use App\Services\EnfantService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEnfantRequest;
+<<<<<<< HEAD
+=======
+use App\Http\Requests\UpdateEnfantRequest;
+use App\Models\Accouchement;
+>>>>>>> feature/amelioration
 use Symfony\Component\HttpFoundation\Response;
 
 class EnfantController extends Controller
@@ -46,9 +51,28 @@ class EnfantController extends Controller
                 'message' => 'Vous n\'avez pas les autorisations nécessaires pour ajouter un enfant.',
             ], 403);
         }
+<<<<<<< HEAD
 
         try {
             $enfant = \DB::transaction(function () use ($request) {
+=======
+        // Récupérer la date d'accouchement
+        $accouchement = Accouchement::where('id', $request->input('accouchement_id'))->first();
+        // Remplacer la date de naissance par la date d'accouchement
+        // Vérifier si la date d'accouchement est définie
+        if (!is_null($accouchement->date)) {
+            // Remplacer la date de naissance par la date d'accouchement
+            $request->merge(['date_naissance' => $accouchement->date]);
+        } else {
+            // Gérer le cas où la date d'accouchement est null
+            // Par exemple, vous pouvez renvoyer une erreur ou une réponse personnalisée
+            return response()->json(['message' => 'La date d\'accouchement est requise.'], 422);
+        }
+        try {
+            $enfant = \DB::transaction(function () use ($request) {
+
+                // Créer l'enfant avec les données mises à jour
+>>>>>>> feature/amelioration
                 $enfant = Enfant::create($request->all());
 
                 // Planifier les rendez-vous via le service
@@ -59,7 +83,11 @@ class EnfantController extends Controller
         } catch (\Exception $e) {
             // Log the error or send a response with an error message
             Log::error($e->getMessage());
+<<<<<<< HEAD
             return response()->json(['message' => 'Erreur lors de la création de l\'enfant'], 500);
+=======
+            return response()->json(['message' => 'Erreur lors de la création de l\'enfant ' . $e->getMessage()], 500);
+>>>>>>> feature/amelioration
         }
 
         return response()->json($enfant, Response::HTTP_CREATED);
