@@ -33,11 +33,12 @@ class ConseilController extends Controller
                 return response()->json(['message' => 'Non autorisé'], 403);
             }
             // Vérifier si la patiente a une grossesse
-            if (!$patiente->grossesses) {
+            if ($patiente->grossesses->isEmpty()) {
                 return response()->json(['message' => 'Aucune grossesse trouvée'], 404);
             }
 
-            $conseils = Conseil::where('grossesse_id', $patiente->grossesses->first()->id)->get();            if ($conseils->isEmpty()) {
+            $conseils = Conseil::where('grossesse_id', $patiente->grossesses->first()->id)->get();
+            if ($conseils->isEmpty()) {
                 return response()->json(['message' => 'Aucun conseil disponible'], 404);
             }
 
@@ -47,9 +48,9 @@ class ConseilController extends Controller
             return response()->json(['message' => 'Non autorisé'], 403);
         }
 
+        // Si aucune des conditions précédentes n'est remplie, retourner les conseils
         return response()->json($conseils, Response::HTTP_OK);
     }
-
 
     /**
      * Show the form for creating a new resource.
